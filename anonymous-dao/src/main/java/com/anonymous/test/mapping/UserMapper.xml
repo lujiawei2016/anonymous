@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.anonymous.test.dao.IUserDao">
+
+	<resultMap type="com.anonymous.test.pojo.User" id="userMap">
+		<id column="user_id" property="userId"/>
+		<result column="user_name" property="userName"/>
+		<result column="user_age" property="userAge"/>
+	</resultMap>
+	<select id="getUserById" resultMap="userMap" parameterType="Integer">
+		select * from user u where u.user_id=#{userId}
+	</select>
+
+	<resultMap type="com.anonymous.test.pojo.User" id="userArticleMap">
+		<id column="user_id" property="userId"/>
+		<result column="user_name" property="userName"/>
+		<result column="user_age" property="userAge"/>
+		<collection property="articleList" ofType="com.anonymous.test.pojo.Article">
+			<id column="article_id" property="articleId"/>
+			<result column="article_content" property="articleContent"/>
+		</collection>
+	</resultMap>	
+	<select id="getUserAndArticleByUserId" parameterType="Integer" resultMap="userArticleMap">
+		SELECT * FROM USER u LEFT JOIN article a ON u.`user_id`=a.`user_id` WHERE u.`user_id`=#{userId};
+	</select>
+	
+	<resultMap type="com.anonymous.test.pojo.Article" id="articleMap">
+		<id column="article_id" property="articleId"/>
+		<result column="article_content" property="articleContent"/>
+		<association property="user" javaType="com.anonymous.test.pojo.User">
+			<id column="user_id" property="userId"/>
+			<result column="user_name" property="userName"/>
+			<result column="user_age" property="userAge"/>
+		</association>
+	</resultMap>
+	<select id="getArticleById" resultMap="articleMap" parameterType="Integer">
+		select * from article a left join user u on u.user_id=a.user_id where a.article_id=#{articleId}
+	</select>
+	
+</mapper>
