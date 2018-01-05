@@ -13,8 +13,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.anonymous.redis.utils.RedisUtils;
 import com.anonymous.test.pojo.User;
-import com.anonymous.utils.redis.RedisUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -65,15 +65,15 @@ public class RedisTest {
 //			System.out.println(u.getUserName() + "-->" + u.getUserAge());
 //		}
 		
-		Map<String, Object> userMap = new HashMap<>();
-		userMap.put("name", "小乖乖");
-		userMap.put("age", 25);
-		userMap.put("address", "广东省广州市海珠区");
-		redisUtils.put("userMap", userMap);
-		redisUtils.exec();
-		
-		Map<String, Object> map = new Gson().fromJson(redisUtils.get("userMap"), new TypeToken<Map<String, Object>>() {}.getType());
-		System.out.println(map);
+//		Map<String, Object> userMap = new HashMap<>();
+//		userMap.put("name", "小乖乖");
+//		userMap.put("age", 25);
+//		userMap.put("address", "广东省广州市海珠区");
+//		redisUtils.put("userMap", userMap);
+//		redisUtils.exec();
+//		
+//		Map<String, Object> map = new Gson().fromJson(redisUtils.get("userMap"), new TypeToken<Map<String, Object>>() {}.getType());
+//		System.out.println(map);
 	}
 	
 }

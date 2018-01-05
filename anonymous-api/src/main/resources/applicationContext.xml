@@ -17,6 +17,7 @@
             <list>
                 <value>classpath:jdbc.properties</value> 
                 <value>classpath:redis-config.properties</value> 
+                <value>classpath:redis-key.properties</value>
             </list>
         </property>
     </bean> 

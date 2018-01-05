@@ -5,14 +5,5 @@
     <artifactId>anonymous</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>anonymous-utils</artifactId>
-  
-  <dependencies>
-  	<dependency>
-  		<groupId>com.anonymous</groupId>
-	    <artifactId>anonymous-quote</artifactId>
-	    <version>0.0.1-SNAPSHOT</version>
-  	</dependency>
-  </dependencies>
-  
+  <artifactId>anonymous-quote</artifactId>
 </project>

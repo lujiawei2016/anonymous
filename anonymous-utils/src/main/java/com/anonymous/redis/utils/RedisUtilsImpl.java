@@ -1,4 +1,4 @@
-package com.anonymous.utils.redis;
+package com.anonymous.redis.utils;
 
 import java.util.concurrent.TimeUnit;
 

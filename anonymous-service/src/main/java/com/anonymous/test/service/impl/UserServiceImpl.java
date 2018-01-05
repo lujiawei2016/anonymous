@@ -5,11 +5,11 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.anonymous.redis.utils.RedisUtils;
 import com.anonymous.test.dao.IUserDao;
 import com.anonymous.test.pojo.Article;
 import com.anonymous.test.pojo.User;
 import com.anonymous.test.service.IUserService;
-import com.anonymous.utils.redis.RedisUtils;
 
 @Service
 @Transactional
