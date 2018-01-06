@@ -30,7 +30,7 @@ public class RedisUtilsImpl implements RedisUtils {
 		if (key==null || "".equals(key)) {  
             return;  
         }
-        redisTemplate.opsForHash().put(key, key, value);
+		redisTemplate.opsForValue().set(key, value);
 	}
 	
 	/**
@@ -42,8 +42,7 @@ public class RedisUtilsImpl implements RedisUtils {
 		if (key==null || "".equals(key)) {  
             return;  
         }
-        redisTemplate.opsForHash().put(key, key, value);
-        redisTemplate.expire(key, timeout, unit);
+		redisTemplate.opsForValue().set(key, value, timeout, unit);
 	}
 
 	/**
@@ -76,7 +75,6 @@ public class RedisUtilsImpl implements RedisUtils {
 	 */
 	@Override
 	public <T> T get(String key, Class<T> className) {
-		redisTemplate.multi();
 		Object obj = redisTemplate.opsForHash().get(key, key);  
         if(obj == null){  
             return null;  
@@ -89,8 +87,7 @@ public class RedisUtilsImpl implements RedisUtils {
 	 */
 	@Override
 	public String get(String key) {
-		redisTemplate.multi();
-		 Object obj = redisTemplate.opsForHash().get(key, key);
+		Object obj = redisTemplate.opsForValue().get(key);
 		 if(obj == null){
 			 return null;
 		 }else{
