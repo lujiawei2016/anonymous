@@ -87,5 +87,5 @@ public interface RedisUtils {
      * @date         2016年12月5日 上午10:27:51
      */
 	public void exec();
-    
+	
 }
