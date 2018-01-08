@@ -241,5 +241,21 @@ public class Anonym {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+
+	public Anonym() {
+		super();
+	}
+
+	public Anonym(String anonymId, String nickName, String userName, String headerImg, String deviceId,
+			Date createTime, Date updateTime) {
+		super();
+		this.anonymId = anonymId;
+		this.nickName = nickName;
+		this.userName = userName;
+		this.headerImg = headerImg;
+		this.deviceId = deviceId;
+		this.createTime = createTime;
+		this.updateTime = updateTime;
+	}
 	
 }

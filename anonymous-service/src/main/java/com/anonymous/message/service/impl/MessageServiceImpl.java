@@ -1,7 +1,10 @@
 package com.anonymous.message.service.impl;
 
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import javax.transaction.Transactional;
@@ -9,11 +12,11 @@ import javax.transaction.Transactional;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.redis.core.RedisConnectionUtils;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.dubbo.common.utils.StringUtils;
+import com.anonymous.anonym.pojo.Anonym;
+import com.anonymous.anonymous.dao.AnonymousDao;
 import com.anonymous.common.utils.CommonUtils;
 import com.anonymous.message.auote.MessageQuote;
 import com.anonymous.message.service.MessageService;
@@ -41,15 +44,13 @@ public class MessageServiceImpl implements MessageService {
 	private String message_num;
 	
 	@Autowired
-	private StringRedisTemplate redisTemplate;
+	private AnonymousDao anonymousDao;
 	
 	/**
 	 * 发送登陆验证码
 	 */
 	@Override
 	public Object sendLoginMsg(String phone) throws Exception {
-		
-		RedisConnectionUtils.unbindConnection(redisTemplate.getConnectionFactory());
 		
 		String result = "0";
 		String msg = "系统繁忙，请稍后重试";
@@ -59,17 +60,13 @@ public class MessageServiceImpl implements MessageService {
 			
 			//判断该手机号码是否已经超过了发短信次数
 			int message_num = 0;
-			//String message_num_redis = redisUtils.get("message_num_"+phone);
-			String message_num_redis = redisTemplate.opsForValue().get("message_num_"+phone);
-			RedisConnectionUtils.unbindConnection(redisTemplate.getConnectionFactory());
+			String message_num_redis = redisUtils.get("message_num_"+phone);
 			if(message_num_redis != null){
 				message_num = Integer.parseInt(message_num_redis);
 			}
 			
 			if(message_num <= 10){
-				//String redisVal = redisUtils.get(login+"_"+phone);
-				String redisVal = redisTemplate.opsForValue().get(login+"_"+phone);
-				RedisConnectionUtils.unbindConnection(redisTemplate.getConnectionFactory());
+				String redisVal = redisUtils.get(login+"_"+phone);
 				if(StringUtils.isBlank(redisVal)){
 					//redis中没有验证码，进行发送
 					//生成四位数数字验证码
@@ -79,24 +76,14 @@ public class MessageServiceImpl implements MessageService {
 						verificationCode = verificationCode+random;
 					}
 					
-					redisTemplate.multi();
-					redisTemplate.opsForValue().set(login+"_"+phone, verificationCode, 120, TimeUnit.SECONDS);
-					redisUtils.exec();
-					RedisConnectionUtils.unbindConnection(redisTemplate.getConnectionFactory());
 					//将生成的验证码放入到redis中，并设置时间为120秒
-					/*redisUtils.put(login+"_"+phone, verificationCode, 120, TimeUnit.SECONDS);
-					redisUtils.exec();*/
-					
+					redisUtils.put(login+"_"+phone, verificationCode, 120, TimeUnit.SECONDS);
+					redisUtils.exec();
 					
 					//该短信发送次数加1
 					message_num = message_num + 1;
-					redisTemplate.multi();
-					redisTemplate.opsForValue().set("message_num_"+phone, message_num+"", 5, TimeUnit.HOURS);
-					redisUtils.exec();
-					RedisConnectionUtils.unbindConnection(redisTemplate.getConnectionFactory());
-					/*message_num = message_num + 1;
 					redisUtils.put("message_num_"+phone, message_num+"", 5, TimeUnit.HOURS);
-					redisUtils.exec();*/
+					redisUtils.exec();
 					
 					//开启一个线程进行短信的发送
 					MessageQuote messageQuote = new MessageQuote(phone, "【匿秘科技】您好，你的验证码为"+verificationCode+"，打死不告诉任何人");
@@ -122,6 +109,57 @@ public class MessageServiceImpl implements MessageService {
 			//手机号码不正确
 			result = "3";
 			msg = "手机号不正确";
+		}
+		
+		resultMap.put("result", result);
+		resultMap.put("msg", msg);
+		
+		return resultMap;
+	}
+
+	/**
+	 * 快捷登陆
+	 */
+	@Override
+	public Object quickLogin(String phone, String code, String deviceId) throws Exception {
+		String result = "0";
+		String msg = "系统繁忙，请稍后重试";
+		Map<String, Object> resultMap = new HashMap<>();
+		if(!StringUtils.isBlank(phone) && !StringUtils.isBlank(code) && !StringUtils.isBlank(deviceId) && CommonUtils.isPhone(phone)){
+			//对比用户输入的验证码和发送的验证码是否一致
+			String verificationCode = redisUtils.get(login+"_"+phone);
+			if(verificationCode == null){
+				//没有发送验证码或验证码已过期
+				result = "2";
+				msg = "请重新发送验证码";
+			}else{
+				if(verificationCode.equals(code)){
+					//发送验证码和用户验证码一致
+					
+					//判断该手机号码是否已经注册
+					List<Anonym> anonymList = anonymousDao.findAnonymByPhone(phone);
+					if(anonymList != null && anonymList.size() != 0){
+						//手机号已经注册
+					}else{
+						//手机号未注册，写入到数据库中
+						
+						//nickName和headerImg考虑随机获取，现在暂时写死
+						String anonymId = UUID.randomUUID().toString();
+						Anonym anonym = new Anonym(anonymId, "李白", phone, "localhost:8080/anonymous-web/resource/test/header.jpg", deviceId, new Date(), new Date());
+						anonymousDao.saveAnonym(anonym);
+					}
+					
+					logger.info(phone+"快捷登陆成功");
+					
+					result = "1";
+					msg = "登陆成功";
+					
+				}else{
+					//发送验证码和用户验证码不一致
+					result = "3";
+					msg = "验证码错误";
+				}
+			}
 		}
 		
 		resultMap.put("result", result);

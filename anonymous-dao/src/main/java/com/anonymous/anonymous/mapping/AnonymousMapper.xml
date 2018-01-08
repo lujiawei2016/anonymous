@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.anonymous.anonymous.dao.AnonymousDao">
+
+	<!-- 根据手机号码查找用户 -->
+	<select id="findAnonymByPhone" parameterType="String" resultType="com.anonymous.anonym.pojo.Anonym">
+		SELECT * FROM an_anonym an WHERE an.phone=#{phone}
+	</select>
+	
+	<!-- 保存用户 -->
+	<insert id="saveAnonym" parameterType="com.anonymous.anonym.pojo.Anonym">
+		INSERT INTO an_anonym (
+		  anonymId,
+		  nickName,
+		  userName,
+		  headerImg,
+		  deviceId,
+		  createTime,
+		  updateTime
+		) 
+		VALUES(
+		  '#{anonymId}',
+		  '#{nickName}',
+		  '#{userName}',
+		  '#{headerImg}',
+		  '#{deviceId}',
+		  '#{createTime}',
+		  '#{updateTime}'
+		)
+	</insert>
+
+</mapper>

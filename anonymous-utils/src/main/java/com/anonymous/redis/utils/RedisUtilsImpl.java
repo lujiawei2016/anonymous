@@ -81,7 +81,8 @@ public class RedisUtilsImpl implements RedisUtils {
 		Object obj = redisTemplate.opsForHash().get(key, key);  
         if(obj == null){  
             return null;  
-        }  
+        }
+        RedisConnectionUtils.unbindConnection(redisTemplate.getConnectionFactory());
         return new Gson().fromJson(""+obj, className);
 	}
 
@@ -91,6 +92,7 @@ public class RedisUtilsImpl implements RedisUtils {
 	@Override
 	public String get(String key) {
 		Object obj = redisTemplate.opsForValue().get(key);
+		RedisConnectionUtils.unbindConnection(redisTemplate.getConnectionFactory());
 		 if(obj == null){
 			 return null;
 		 }else{
@@ -104,6 +106,7 @@ public class RedisUtilsImpl implements RedisUtils {
 	@Override
 	public void exec(){
 		redisTemplate.exec();
+		RedisConnectionUtils.unbindConnection(redisTemplate.getConnectionFactory());
 	}
 
 }
