@@ -19,7 +19,7 @@ public class Card {
 	
 	private String cardImg;                                     // 卡片图片
 	
-	private int lock;                                           // 是否锁定，1-未锁定，0-已锁定
+	private int isLock;                                         // 是否锁定，1-未锁定，0-已锁定
 	
 	private String lockReason;                                  // 锁定理由
 	
@@ -68,13 +68,13 @@ public class Card {
 	public void setCardImg(String cardImg) {
 		this.cardImg = cardImg;
 	}
-
-	public int getLock() {
-		return lock;
+	
+	public int getIsLock() {
+		return isLock;
 	}
 
-	public void setLock(int lock) {
-		this.lock = lock;
+	public void setIsLock(int isLock) {
+		this.isLock = isLock;
 	}
 
 	public String getLockReason() {

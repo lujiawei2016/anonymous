@@ -145,9 +145,14 @@ public class MessageServiceImpl implements MessageService {
 						
 						//nickName和headerImg考虑随机获取，现在暂时写死
 						String anonymId = UUID.randomUUID().toString();
-						Anonym anonym = new Anonym(anonymId, "李白", phone, "localhost:8080/anonymous-web/resource/test/header.jpg", deviceId, new Date(), new Date());
+						Anonym anonym = new Anonym(anonymId, "张三", phone, "", phone, deviceId, new Date(), new Date());
 						anonymousDao.saveAnonym(anonym);
+						
+						resultMap.put("anonymId", anonym.getAnonymId());
 					}
+					
+					//登录成功之后删除验证码
+					redisUtils.deleteKey(login+"_"+phone);
 					
 					logger.info(phone+"快捷登陆成功");
 					

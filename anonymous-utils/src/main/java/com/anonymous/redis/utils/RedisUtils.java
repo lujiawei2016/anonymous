@@ -81,6 +81,12 @@ public interface RedisUtils {
     public String get(String key);
     
     /**
+     * 删除键
+     * @param key
+     */
+    public void deleteKey(String key);
+    
+    /**
      * 
      * @Description  提交事务
      * @author       lujiawei

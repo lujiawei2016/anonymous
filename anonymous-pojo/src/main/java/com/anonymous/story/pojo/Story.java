@@ -21,7 +21,7 @@ public class Story {
 	
 	private Anonym anonym;                                             // 作者（即用户）
 	
-	private int lock;                                                  // 是否锁定，1-未锁定，0-已锁定
+	private int isLock;                                                // 是否锁定，1-未锁定，0-已锁定
 	
 	private String lockReason;                                         // 锁定理由
 	
@@ -68,13 +68,13 @@ public class Story {
 	public void setAnonym(Anonym anonym) {
 		this.anonym = anonym;
 	}
-
-	public int getLock() {
-		return lock;
+	
+	public int getIsLock() {
+		return isLock;
 	}
 
-	public void setLock(int lock) {
-		this.lock = lock;
+	public void setIsLock(int isLock) {
+		this.isLock = isLock;
 	}
 
 	public String getLockReason() {

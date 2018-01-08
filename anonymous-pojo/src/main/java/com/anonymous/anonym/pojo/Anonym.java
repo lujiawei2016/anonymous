@@ -34,7 +34,7 @@ public class Anonym {
 	
 	private String phone;                                                 // 手机号码
 	
-	private int lock;                                                     // 是否锁定，1-未锁定，0-已锁定
+	private int isLock;                                                   // 是否锁定，1-未锁定，0-已锁定
 	
 	private String deviceId;                                              // 设备唯一标识
 	
@@ -105,13 +105,13 @@ public class Anonym {
 	public void setHeaderImg(String headerImg) {
 		this.headerImg = headerImg;
 	}
-
-	public int getLock() {
-		return lock;
+	
+	public int getIsLock() {
+		return isLock;
 	}
 
-	public void setLock(int lock) {
-		this.lock = lock;
+	public void setIsLock(int isLock) {
+		this.isLock = isLock;
 	}
 
 	public String getLockReason() {
@@ -246,13 +246,14 @@ public class Anonym {
 		super();
 	}
 
-	public Anonym(String anonymId, String nickName, String userName, String headerImg, String deviceId,
+	public Anonym(String anonymId, String nickName, String userName, String headerImg, String phone, String deviceId,
 			Date createTime, Date updateTime) {
 		super();
 		this.anonymId = anonymId;
 		this.nickName = nickName;
 		this.userName = userName;
 		this.headerImg = headerImg;
+		this.phone = phone;
 		this.deviceId = deviceId;
 		this.createTime = createTime;
 		this.updateTime = updateTime;

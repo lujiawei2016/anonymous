@@ -14,20 +14,24 @@
 		  anonymId,
 		  nickName,
 		  userName,
+		  PASSWORD,
 		  headerImg,
+		  phone,
 		  deviceId,
 		  createTime,
 		  updateTime
 		) 
-		VALUES(
-		  '#{anonymId}',
-		  '#{nickName}',
-		  '#{userName}',
-		  '#{headerImg}',
-		  '#{deviceId}',
-		  '#{createTime}',
-		  '#{updateTime}'
-		)
+		VALUES (
+		  #{anonymId}, 
+		  #{nickName}, 
+		  #{userName}, 
+		  #{password}, 
+		  #{headerImg}, 
+		  #{phone}, 
+		  #{deviceId},
+		  #{createTime},
+		  #{updateTime}
+		 )
 	</insert>
 
 </mapper>

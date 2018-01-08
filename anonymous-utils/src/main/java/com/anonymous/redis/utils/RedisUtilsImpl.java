@@ -101,6 +101,15 @@ public class RedisUtilsImpl implements RedisUtils {
 	}
 	
 	/**
+	 * 删除键
+	 */
+	@Override
+	public void deleteKey(String key) {
+		redisTemplate.delete(key);
+		RedisConnectionUtils.unbindConnection(redisTemplate.getConnectionFactory());
+	}
+	
+	/**
 	 * 提交事务
 	 */
 	@Override
