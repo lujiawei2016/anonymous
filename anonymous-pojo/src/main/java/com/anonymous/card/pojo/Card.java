@@ -132,5 +132,19 @@ public class Card {
 	public void setCardCommentList(List<CardComment> cardCommentList) {
 		this.cardCommentList = cardCommentList;
 	}
+
+	public Card() {
+		super();
+	}
+
+	public Card(String cardId, String cardContent, String cardImg, Date createTime, Date updateTime, Anonym anonym) {
+		super();
+		this.cardId = cardId;
+		this.cardContent = cardContent;
+		this.cardImg = cardImg;
+		this.createTime = createTime;
+		this.updateTime = updateTime;
+		this.anonym = anonym;
+	}
 	
 }

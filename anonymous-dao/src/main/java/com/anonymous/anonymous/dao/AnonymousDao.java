@@ -5,6 +5,13 @@ import java.util.List;
 import com.anonymous.anonym.pojo.Anonym;
 
 public interface AnonymousDao {
+	
+	/**
+	 * 根据id查找用户
+	 * @param anonymId
+	 * @return
+	 */
+	public Anonym findAnonymById(String anonymId);
 
 	/**
 	 * 根据手机号码查找用户

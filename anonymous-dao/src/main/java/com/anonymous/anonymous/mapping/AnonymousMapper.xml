@@ -3,6 +3,11 @@
 
 <mapper namespace="com.anonymous.anonymous.dao.AnonymousDao">
 
+	<!-- 根据id查找用户 -->
+	<select id="findAnonymById" parameterType="String" resultType="com.anonymous.anonym.pojo.Anonym">
+		SELECT * FROM an_anonym an WHERE an.`anonymId`=#{anonymId}
+	</select>
+
 	<!-- 根据手机号码查找用户 -->
 	<select id="findAnonymByPhone" parameterType="String" resultType="com.anonymous.anonym.pojo.Anonym">
 		SELECT * FROM an_anonym an WHERE an.phone=#{phone}
