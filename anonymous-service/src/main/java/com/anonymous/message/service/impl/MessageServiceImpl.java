@@ -153,6 +153,7 @@ public class MessageServiceImpl implements MessageService {
 					
 					//登录成功之后删除验证码
 					redisUtils.deleteKey(login+"_"+phone);
+					redisUtils.exec();
 					
 					logger.info(phone+"快捷登陆成功");
 					

@@ -3,8 +3,6 @@ package com.anonymous.redis.utils;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.connection.RedisConnection;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisConnectionUtils;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
@@ -105,8 +103,8 @@ public class RedisUtilsImpl implements RedisUtils {
 	 */
 	@Override
 	public void deleteKey(String key) {
+		redisTemplate.multi();
 		redisTemplate.delete(key);
-		RedisConnectionUtils.unbindConnection(redisTemplate.getConnectionFactory());
 	}
 	
 	/**
