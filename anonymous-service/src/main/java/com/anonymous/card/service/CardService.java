@@ -17,4 +17,12 @@ public interface CardService {
 	 * @throws Exception
 	 */
 	public Object release(String anonymId,String cardContent,String imgPath) throws Exception;
+	
+	/**
+	 * 查出主页最新卡片信息
+	 * @param anonymId
+	 * @return
+	 * @throws Exception
+	 */
+	public Object searchNewCard(String anonymId) throws Exception;
 }

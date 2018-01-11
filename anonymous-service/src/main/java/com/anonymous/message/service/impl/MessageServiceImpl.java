@@ -140,6 +140,7 @@ public class MessageServiceImpl implements MessageService {
 					List<Anonym> anonymList = anonymousDao.findAnonymByPhone(phone);
 					if(anonymList != null && anonymList.size() != 0){
 						//手机号已经注册
+						resultMap.put("anonymId", anonymList.get(0).getAnonymId());
 					}else{
 						//手机号未注册，写入到数据库中
 						

@@ -1,6 +1,9 @@
 package com.anonymous.card.dao;
 
+import java.util.List;
 import java.util.Map;
+
+import com.anonymous.card.pojo.Card;
 
 /**
  * 卡片dao
@@ -15,4 +18,10 @@ public interface CardDao {
 	 * @param cardMap
 	 */
 	public void saveCard(Map<String, Object> cardMap);
+	
+	/**
+	 * 查出主页最新卡片信息
+	 * @return
+	 */
+	public List<Card> searchNewCard();
 }

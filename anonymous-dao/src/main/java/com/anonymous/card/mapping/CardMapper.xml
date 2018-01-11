@@ -22,5 +22,9 @@
 		  #{anonymId}
 		)
 	</insert>
+	
+	<!-- 查出最新卡片 -->
+	<select id="searchNewCard" resultType="com.anonymous.card.pojo.Card">
+	</select>
 
 </mapper>

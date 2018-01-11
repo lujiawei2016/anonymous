@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import javax.transaction.Transactional;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,6 @@ import com.alibaba.dubbo.common.utils.StringUtils;
 import com.anonymous.anonym.pojo.Anonym;
 import com.anonymous.anonymous.dao.AnonymousDao;
 import com.anonymous.card.dao.CardDao;
-import com.anonymous.card.pojo.Card;
 import com.anonymous.card.service.CardService;
 
 /**
@@ -26,6 +26,8 @@ import com.anonymous.card.service.CardService;
 @Service
 @Transactional
 public class CardServiceImpl implements CardService {
+	
+	private static final Logger logger = Logger.getLogger(CardServiceImpl.class);
 	
 	@Autowired
 	private AnonymousDao anonymousDao;
@@ -58,6 +60,8 @@ public class CardServiceImpl implements CardService {
 				
 				cardDao.saveCard(cardMap);
 				
+				logger.info(anonymId+"成功添加了一条卡片");
+				
 				result = "1";
 				msg = "添加成功";
 				
@@ -68,6 +72,18 @@ public class CardServiceImpl implements CardService {
 		resultMap.put("msg", msg);
 		
 		return resultMap;
+	}
+
+	/**
+	 * 查出主页最新卡片信息
+	 */
+	@Override
+	public Object searchNewCard(String anonymId) throws Exception {
+		if(!StringUtils.isBlank(anonymId)){
+			
+			logger.info(anonymId+"获取最新卡片信息");
+		}
+		return null;
 	}
 
 }
