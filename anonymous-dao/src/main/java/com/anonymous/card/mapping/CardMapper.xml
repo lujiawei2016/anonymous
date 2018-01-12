@@ -24,7 +24,20 @@
 	</insert>
 	
 	<!-- 查出最新卡片 -->
-	<select id="searchNewCard" resultType="com.anonymous.card.pojo.Card">
+	<select id="searchNewCard" resultType="java.util.Map">
+		SELECT 
+		  card.`cardId`,
+		  card.`cardContent`,
+		  card.`cardImg` ,
+		  (SELECT COUNT(*) FROM an_cardcollection collection WHERE collection.`cardId`=card.`cardId`) AS collnum,
+		  (SELECT COUNT(*) FROM an_cardcomment comm WHERE comm.`cardId`=card.`cardId`) AS commnum,
+		  (SELECT COUNT(*) FROM an_cardfabulous fabul WHERE fabul.`cardId`=card.`cardId`) AS fabulnum
+		FROM
+		  an_card card 
+		WHERE 
+		  card.`delFlag` = 1
+		  AND card.`isLock` = 1
+		ORDER BY card.`createTime` DESC ;
 	</select>
 
 </mapper>

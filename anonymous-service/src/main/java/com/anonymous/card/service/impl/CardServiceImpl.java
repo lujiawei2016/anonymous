@@ -1,7 +1,9 @@
 package com.anonymous.card.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -79,11 +81,24 @@ public class CardServiceImpl implements CardService {
 	 */
 	@Override
 	public Object searchNewCard(String anonymId) throws Exception {
+		
+		String result = "0";
+		String msg = "系统繁忙，请稍后重试";
+		Map<String, Object> resultMap = new HashMap<>();
+		
 		if(!StringUtils.isBlank(anonymId)){
+			List<Map<String, Object>> cardList = cardDao.searchNewCard();
+			result = "1";
+			msg = "";
+			resultMap.put("cardList", cardList);
 			
 			logger.info(anonymId+"获取最新卡片信息");
 		}
-		return null;
+		
+		resultMap.put("result", result);
+		resultMap.put("msg", msg);
+		
+		return resultMap;
 	}
 
 }
