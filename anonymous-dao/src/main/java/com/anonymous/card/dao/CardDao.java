@@ -3,6 +3,8 @@ package com.anonymous.card.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.anonymous.card.pojo.Card;
+
 /**
  * 卡片dao
  * @author  lujiawei
@@ -10,6 +12,13 @@ import java.util.Map;
  * @date    2018年1月9日上午11:30:57
  */
 public interface CardDao {
+	
+	/**
+	 * 根据id查询卡片
+	 * @param cardId
+	 * @return
+	 */
+	public Card findCardById(String cardId);
 
 	/**
 	 * 保存卡片

@@ -1,5 +1,6 @@
 package com.anonymous.anonym.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -8,7 +9,9 @@ import java.util.Date;
  * @version V1.0
  * @date    2017年12月12日下午4:55:12
  */
-public class AnonymReport {
+public class AnonymReport implements Serializable {
+
+	private static final long serialVersionUID = 2591908853992055612L;
 
 	private String reportId;
 	

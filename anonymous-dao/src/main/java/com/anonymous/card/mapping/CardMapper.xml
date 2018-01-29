@@ -3,6 +3,21 @@
 
 <mapper namespace="com.anonymous.card.dao.CardDao">
 
+	<!-- 根据id查找卡片 -->
+	<select id="findCardById" parameterType="String" resultType="com.anonymous.card.pojo.Card">
+		SELECT 
+		  card.`cardId`,
+		  card.`cardContent`,
+		  card.`cardImg`,
+		  card.`createTime`,
+		  card.`anonymId` 
+		FROM
+		  an_card card 
+		WHERE card.`cardId` = #{cardId} 
+		  AND card.`delFlag` = 1 
+		  AND card.`isLock` = 1 ;
+	</select>
+
 	<!-- 保存卡片 -->
 	<insert id="saveCard" parameterType="hashmap">
 		INSERT an_card (

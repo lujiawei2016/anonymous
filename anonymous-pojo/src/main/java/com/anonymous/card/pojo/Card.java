@@ -1,5 +1,6 @@
 package com.anonymous.card.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -11,8 +12,10 @@ import com.anonymous.anonym.pojo.Anonym;
  * @version V1.0
  * @date    2017年12月12日下午5:00:05
  */
-public class Card {
+public class Card implements Serializable {
 	
+	private static final long serialVersionUID = 6804589512626188873L;
+
 	private String cardId;                                      // 主键
 	
 	private String cardContent;                                 // 卡片内容

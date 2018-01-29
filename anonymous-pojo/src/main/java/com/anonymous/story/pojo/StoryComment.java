@@ -1,5 +1,6 @@
 package com.anonymous.story.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -11,8 +12,10 @@ import com.anonymous.anonym.pojo.Anonym;
  * @version V1.0
  * @date    2017年12月12日下午4:58:52
  */
-public class StoryComment {
+public class StoryComment implements Serializable {
 	
+	private static final long serialVersionUID = -8747962897465109737L;
+
 	private String storyCommentId;                                    // 主键
 	
 	private String storyCommentContent;                               // 评论内容

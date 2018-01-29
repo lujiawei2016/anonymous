@@ -1,5 +1,6 @@
 package com.anonymous.anonym.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -20,8 +21,10 @@ import com.anonymous.story.pojo.StoryFabulous;
  * @version V1.0
  * @date    2017年12月12日下午4:52:12
  */
-public class Anonym {
+public class Anonym implements Serializable {
 	
+	private static final long serialVersionUID = 3966607983697292044L;
+
 	private String anonymId;                                              // 主键
 	
 	private String nickName;                                              // 昵称

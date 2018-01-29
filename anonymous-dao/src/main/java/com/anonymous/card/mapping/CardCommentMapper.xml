@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.anonymous.card.dao.CardCommentDao">
+
+	<!-- 保存卡片评论 -->
+	<insert id="saveCardComment" parameterType="hashmap">
+		INSERT INTO an_cardcomment (
+		  cardCommentId,
+		  cardCommentContent,
+		  carCommentReplyId,
+		  createTime,
+		  updateTime,
+		  anonymId,
+		  cardId
+		) 
+		VALUES (
+			#{cardCommentId},
+			#{cardCommentContent},
+			#{carCommentReplyId},
+			#{createTime},
+			#{updateTime},
+			#{anonymId},
+			#{cardId}
+		)
+	</insert>
+	
+	<!-- 查找卡片评论 -->
+	<select id="getCardComment" parameterType="hashmap">
+		SELECT 
+		  cardcomment.`anonymId`,
+		  (SELECT anonym.`nickName` FROM an_anonym anonym WHERE anonym.`anonymId` = cardcomment.`anonymId`) AS 'nickName',
+		  (SELECT anonym.`headerImg` FROM an_anonym anonym WHERE anonym.`anonymId` = cardcomment.`anonymId`) AS 'headerImg' ,
+		  (SELECT anonym.`nickName` from an_anonym anonym WHERE anonym.`anonymId` = cardcomment.`carCommentReplyId`) AS 'replyName',
+		  cardcomment.`cardCommentContent`,
+		  (SELECT COUNT(*) FROM an_cardcommentfabulous cardcommentfabulous WHERE cardcommentfabulous.`cardCommentId` = cardcomment.`cardCommentId`) AS 'fabulousNum',
+		  (SELECT COUNT(*) 
+			  FROM
+			    an_cardcommentfabulous cardcommentfabulous 
+			  WHERE cardcommentfabulous.`cardCommentId` = cardcomment.`cardCommentId` 
+			    AND cardcommentfabulous.`anonymId` = '#{anonymId}') AS 'isFabulous'
+		FROM
+		  an_card card 
+		  INNER JOIN an_cardcomment cardcomment 
+		    ON card.`cardId` = cardcomment.`cardId` 
+		WHERE card.`cardId` = '#{cardId}' 
+	</select>
+	
+</mapper>
