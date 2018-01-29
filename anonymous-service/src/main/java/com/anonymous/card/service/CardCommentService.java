@@ -12,10 +12,12 @@ public interface CardCommentService {
 	 * 获取卡片评论内容
 	 * @param anonymId
 	 * @param cardId
+	 * @param offset    从第offset开始
+	 * @param length    查找length条
 	 * @return
 	 * @throws Exception
 	 */
-	public Object getCardComment(String anonymId,String cardId) throws Exception;
+	public Object getCardComment(String anonymId,String cardId,String offset,String length) throws Exception;
 	
 	/**
 	 * 保存评论内容

@@ -47,12 +47,12 @@ public class CardCommentServiceImpl implements CardCommentService {
 	 * 获取卡片评论
 	 */
 	@Override
-	public Object getCardComment(String anonymId, String cardId) throws Exception {
+	public Object getCardComment(String anonymId, String cardId,String offset,String length) throws Exception {
 		String result = "0";
 		String msg = "系统繁忙，请稍后重试";
 		Map<String, Object> resultMap = new HashMap<>();
 		
-		if(!StringUtils.isBlank(anonymId) && !StringUtils.isBlank(cardId)){
+		if(!StringUtils.isBlank(anonymId) && !StringUtils.isBlank(cardId) && StringUtils.isNumeric(offset) && StringUtils.isNumeric(length)){
 			Anonym anonym = anonymousDao.findAnonymById(anonymId);
 			Card card = cardDao.findCardById(cardId);
 			if(anonym != null && card != null){
@@ -61,6 +61,8 @@ public class CardCommentServiceImpl implements CardCommentService {
 				Map<String, Object> commentMap = new HashMap<>();
 				commentMap.put("anonymId", anonym.getAnonymId());
 				commentMap.put("cardId", card.getCardId());
+				commentMap.put("offset", Integer.parseInt(offset));
+				commentMap.put("length", Integer.parseInt(length));
 				List<Map<String, Object>> commentList = cardCommentDao.getCardComment(commentMap);
 				
 				result = "1";
@@ -117,18 +119,6 @@ public class CardCommentServiceImpl implements CardCommentService {
 					commentMap.put("anonymId", anonymId);
 					commentMap.put("cardId", cardId);
 					cardCommentDao.saveCardComment(commentMap);
-					
-					/*Map<String,Object> date = new HashMap<>();
-					date.put("anonymNickName", anonym.getNickName());
-					date.put("anonymHeaderImg", anonym.getHeaderImg());
-					if(replyAnonym != null){
-						date.put("replyAnonymNickName", replyAnonym.getNickName());
-						date.put("replyAnonymHeaderImg", replyAnonym.getHeaderImg());
-					}else{
-						date.put("replyAnonymNickName", null);
-						date.put("replyAnonymHeaderImg", null);
-					}
-					resultMap.put("date", date);*/
 					
 					JSONObject json = new JSONObject();
 					json.put("anonymNickName", anonym.getNickName());
