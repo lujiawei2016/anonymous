@@ -29,6 +29,7 @@
 	<select id="getCardComment" parameterType="hashmap"  resultType="hashmap">
 		SELECT 
 		  cardcomment.`anonymId`,
+		  cardcomment.`carCommentReplyId`,
 		  (SELECT anonym.`nickName` FROM an_anonym anonym WHERE anonym.`anonymId` = cardcomment.`anonymId`) AS 'nickName',
 		  (SELECT anonym.`headerImg` FROM an_anonym anonym WHERE anonym.`anonymId` = cardcomment.`anonymId`) AS 'headerImg' ,
 		  (SELECT anonym.`nickName` from an_anonym anonym WHERE anonym.`anonymId` = cardcomment.`carCommentReplyId`) AS 'replyName',
