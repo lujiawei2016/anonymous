@@ -22,6 +22,8 @@
 	<dubbo:service interface="com.anonymous.message.service.MessageService" ref="provider_messageService" timeout="1200000"></dubbo:service>
 	<dubbo:service interface="com.anonymous.card.service.CardService" ref="provider_cardService" timeout="1200000"></dubbo:service>
 	<dubbo:service interface="com.anonymous.card.service.CardCommentService" ref="provider_cardCommentService" timeout="1200000"></dubbo:service>
+	<dubbo:service interface="com.anonymous.activemq.ConsumerService" ref="mq_consumer_cardCommentService" timeout="1200000"></dubbo:service>
+	<dubbo:service interface="com.anonymous.activemq.ProducerService" ref="mq_producer_cardCommentService" timeout="1200000"></dubbo:service>
 
     <!-- 和本地bean一样实现服务 -->
     <bean id="demoService" class="com.anonymous.test.service.impl.UserServiceImpl" />
@@ -29,4 +31,6 @@
     <bean id="provider_messageService" class="com.anonymous.message.service.impl.MessageServiceImpl"></bean>
     <bean id="provider_cardService" class="com.anonymous.card.service.impl.CardServiceImpl"></bean>
     <bean id="provider_cardCommentService" class="com.anonymous.card.service.impl.CardCommentServiceImpl"></bean>
+    <bean id="mq_consumer_cardCommentService" class="com.anonymous.activemq.ConsumerServiceImpl"></bean>
+    <bean id="mq_producer_cardCommentService" class="com.anonymous.activemq.ProducerServiceImpl"></bean>
 </beans>  
