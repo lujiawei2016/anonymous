@@ -52,14 +52,13 @@ public class CardCommentServiceImpl implements CardCommentService {
 		String msg = "系统繁忙，请稍后重试";
 		Map<String, Object> resultMap = new HashMap<>();
 		
-		if(!StringUtils.isBlank(anonymId) && !StringUtils.isBlank(cardId) && StringUtils.isNumeric(offset) && StringUtils.isNumeric(length)){
-			Anonym anonym = anonymousDao.findAnonymById(anonymId);
+		if(!StringUtils.isBlank(cardId) && StringUtils.isNumeric(offset) && StringUtils.isNumeric(length)){
 			Card card = cardDao.findCardById(cardId);
-			if(anonym != null && card != null){
+			if(card != null){
 				logger.info(anonymId+"获取"+cardId+"的评论");
 				//当卡片和用户合法时查询评论
 				Map<String, Object> commentMap = new HashMap<>();
-				commentMap.put("anonymId", anonym.getAnonymId());
+				commentMap.put("anonymId", anonymId);
 				commentMap.put("cardId", card.getCardId());
 				commentMap.put("offset", Integer.parseInt(offset));
 				commentMap.put("length", Integer.parseInt(length));
