@@ -110,7 +110,8 @@ public class CardCommentServiceImpl implements CardCommentService {
 				Card card = cardDao.findCardById(cardId);
 				if(card != null){
 					Map<String, Object> commentMap = new HashMap<>();
-					commentMap.put("cardCommentId", UUID.randomUUID().toString());
+					String cardCommentId = UUID.randomUUID().toString();
+					commentMap.put("cardCommentId", cardCommentId);
 					commentMap.put("cardCommentContent", cardCommentContent);
 					commentMap.put("carCommentReplyId", carCommentReplyId);
 					commentMap.put("createTime", new Date());
@@ -122,6 +123,7 @@ public class CardCommentServiceImpl implements CardCommentService {
 					JSONObject json = new JSONObject();
 					json.put("anonymNickName", anonym.getNickName());
 					json.put("anonymHeaderImg", anonym.getHeaderImg());
+					json.put("cardCommentId", cardCommentId);
 					if(replyAnonym != null){
 						json.put("replyAnonymNickName", replyAnonym.getNickName());
 						json.put("replyAnonymHeaderImg", replyAnonym.getHeaderImg());
