@@ -3,6 +3,22 @@
 
 <mapper namespace="com.anonymous.card.dao.CardCommentDao">
 
+	<!-- 根据id查找评论 -->
+	<select id="findCardCommentById" parameterType="String" resultType="com.anonymous.card.pojo.CardComment">
+		SELECT 
+		  c.`cardCommentId`,
+		  c.`cardCommentContent`,
+		  c.`carCommentReplyId`,
+		  c.`createTime`,
+		  c.`updateTime`,
+		  c.`anonymId`,
+		  c.`cardId` 
+		FROM
+		  an_cardcomment c 
+		WHERE c.`cardCommentId` = #{cardCommentId} 
+		  AND c.`delFlag` = 1 
+	</select>
+
 	<!-- 保存卡片评论 -->
 	<insert id="saveCardComment" parameterType="hashmap">
 		INSERT INTO an_cardcomment (
