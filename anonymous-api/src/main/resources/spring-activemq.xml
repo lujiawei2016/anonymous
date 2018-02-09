@@ -39,7 +39,7 @@
         <!-- <constructor-arg>
             <value>lujiawei666</value>
         </constructor-arg> -->
-        <constructor-arg index="0" value="lujiawei1,lujiawei2" />
+        <constructor-arg index="0" value="${activemq.desName}" />
     </bean>
  
     <!-- 配置JMS模板（Queue），Spring提供的JMS工具类，它发送、接收消息。 -->
