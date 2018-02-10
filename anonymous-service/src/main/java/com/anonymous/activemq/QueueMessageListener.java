@@ -8,15 +8,21 @@ import javax.jms.ObjectMessage;
 
 public class QueueMessageListener implements MessageListener {
 	
+	private String queue = "queue://";
+
+	@SuppressWarnings("unchecked")
 	@Override
 	public void onMessage(Message message) {
         try {
-        	//System.out.println("监听："+message.getJMSDestination().toString());
-    		/*TextMessage tm = (TextMessage) message;
-            System.out.println("QueueMessageListener监听到了文本消息：\t"
-                    + tm.getText());*/
-            //do something ...
-        	
+        	String desName = message.getJMSDestination().toString();
+        	if("cardCommentFabulous".equals(desName.replaceAll(queue, ""))){
+        		//卡片评论点赞
+        		ObjectMessage objectMessage = (ObjectMessage) message;
+				HashMap<String, Object> map = (HashMap<String, Object>) ((ObjectMessage) message).getObject();
+				
+        	}
+        		
+        	System.out.println(desName);
         	ObjectMessage objectMessage = (ObjectMessage) message;
         	HashMap<String, Object> map = (HashMap<String, Object>) objectMessage.getObject();
         	System.out.println("监听监听.................................");
@@ -24,10 +30,9 @@ public class QueueMessageListener implements MessageListener {
         	System.out.println(map.get("msg"));
         	System.out.println(objectMessage.getJMSType());
         	System.out.println("监听监听.................................");
-        	int i = 1/0;
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("异常异常");
+            throw new RuntimeException("mq处理消息异常");
         }
 	}
 

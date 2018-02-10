@@ -1,7 +1,9 @@
 package com.anonymous.card.service.impl;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.transaction.Transactional;
 
@@ -16,6 +18,7 @@ import com.anonymous.anonymous.dao.AnonymousDao;
 import com.anonymous.card.dao.CardCommentDao;
 import com.anonymous.card.pojo.CardComment;
 import com.anonymous.card.service.CardCommentFabulousService;
+import com.anonymous.mq.utils.ActiveMQUtils;
 import com.anonymous.redis.utils.RedisUtils;
 
 /**
@@ -35,6 +38,9 @@ public class CardCommentFabulousServiceImpl implements CardCommentFabulousServic
 	
 	@Autowired
 	private RedisUtils redisUtils;
+	
+	@Autowired
+	private ActiveMQUtils activeMQUtils;
 	
 	@Autowired
 	private AnonymousDao anonymousDao;
@@ -69,7 +75,13 @@ public class CardCommentFabulousServiceImpl implements CardCommentFabulousServic
 					redisUtils.exec();
 					
 					//将最新的数据放到activemq中进行数据库的插入
-					
+					HashMap<String, Object> mqMap = new HashMap<>();
+					mqMap.put("cardCommentFabulousId", UUID.randomUUID().toString());
+					mqMap.put("anonymId", anonymId);
+					mqMap.put("cardCommentId", cardCommentId);
+					mqMap.put("createTime", new Date());
+					mqMap.put("updateTime", new Date());
+					activeMQUtils.sendMessage("cardCommentFabulous", mqMap);
 					
 					resultMap.put("fabulousNum", fabulousNum);
 					result = "1";
