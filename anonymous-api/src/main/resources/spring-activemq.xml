@@ -60,6 +60,7 @@
         <property name="connectionFactory" ref="myAmqConnectionFactory" />
         <property name="destination" ref="queueDestination" />
         <property name="messageListener" ref="queueMessageListener" />
+        <property name="sessionTransacted" value="true"/>
     </bean>
     
 </beans>
