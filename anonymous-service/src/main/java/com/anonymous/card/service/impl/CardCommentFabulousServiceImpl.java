@@ -47,7 +47,7 @@ public class CardCommentFabulousServiceImpl implements CardCommentFabulousServic
 	
 	@Autowired
 	private CardCommentDao cardCommentDao;
-	
+
 	/**
 	 * 用户点赞评论
 	 */
@@ -61,33 +61,47 @@ public class CardCommentFabulousServiceImpl implements CardCommentFabulousServic
 			if(anonym != null){
 				CardComment cardComment = cardCommentDao.findCardCommentById(cardCommentId);
 				if(cardComment != null){
-					//在redis中进行运算，再放到activemq中进行数据库的增减
-					String redis_fabulous_key = card_comment_fabulous_num+"_"+cardCommentId;
-					String commentFabulousNum = redisUtils.get(redis_fabulous_key);
-					int fabulousNum = 1;
-					if(!StringUtils.isBlank(commentFabulousNum)){
-						fabulousNum = Integer.parseInt(commentFabulousNum);
+					
+					//在redis中查找判断是否已经点赞
+					String redis_anonymId_key = anonymId+"_"+cardCommentId;
+					String isFabulous = redisUtils.get(redis_anonymId_key);
+					if(StringUtils.isBlank(isFabulous)){
+						//没有点赞
+						//在redis中进行运算，再放到activemq中进行数据库的增减
+						String redis_fabulous_key = card_comment_fabulous_num+"_"+cardCommentId;
+						String commentFabulousNum = redisUtils.get(redis_fabulous_key);
+						int fabulousNum = 1;
+						if(!StringUtils.isBlank(commentFabulousNum)){
+							fabulousNum = Integer.parseInt(commentFabulousNum);
+							fabulousNum = fabulousNum + 1;
+						}
+						
+						//将点赞+1后再写入到redis中
+						redisUtils.put(redis_fabulous_key, fabulousNum+"");
+						
+						//将最新的数据放到activemq中进行数据库的插入
+						HashMap<String, Object> mqMap = new HashMap<>();
+						mqMap.put("cardCommentFabulousId", UUID.randomUUID().toString());
+						mqMap.put("anonymId", anonymId);
+						mqMap.put("cardCommentId", cardCommentId);
+						mqMap.put("createTime", new Date());
+						mqMap.put("updateTime", new Date());
+						activeMQUtils.sendMessage("cardCommentFabulous", mqMap);
+						
+						//点赞成功进行redis标记
+						redisUtils.put(redis_anonymId_key, "1");
+						redisUtils.exec();
+						
+						resultMap.put("fabulousNum", fabulousNum);
+						result = "1";
+						msg = "点赞成功";
+						
+						logger.info(anonymId+"点赞了卡片"+cardCommentId+"成功");
+					}else{
+						//已经点赞
+						result = "4";
+						msg = "已经点赞啦";
 					}
-					fabulousNum = fabulousNum + 1;
-					
-					//将点赞+1后再写入到redis中
-					redisUtils.put("redis_fabulous_key", fabulousNum);
-					redisUtils.exec();
-					
-					//将最新的数据放到activemq中进行数据库的插入
-					HashMap<String, Object> mqMap = new HashMap<>();
-					mqMap.put("cardCommentFabulousId", UUID.randomUUID().toString());
-					mqMap.put("anonymId", anonymId);
-					mqMap.put("cardCommentId", cardCommentId);
-					mqMap.put("createTime", new Date());
-					mqMap.put("updateTime", new Date());
-					activeMQUtils.sendMessage("cardCommentFabulous", mqMap);
-					
-					resultMap.put("fabulousNum", fabulousNum);
-					result = "1";
-					msg = "点赞成功";
-					
-					logger.info(anonymId+"点赞了卡片"+cardCommentId+"成功");
 				}else{
 					result = "3";
 					msg = "卡片不合法";

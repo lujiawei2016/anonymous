@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.anonymous.card.dao.CardCommentFabulousDao">
+
+	<!-- 插入评论点赞 -->
+	<insert id="fabulous" parameterType="hashmap">
+		INSERT INTO an_cardcommentfabulous (
+		  cardCommentFabulousId,
+		  createTime,
+		  updateTime,
+		  cardCommentId,
+		  anonymId
+		) 
+		VALUES (
+		  #{cardCommentFabulousId},
+		  #{createTime},
+		  #{updateTime},
+		  #{cardCommentId},
+		  #{anonymId}
+		)
+	</insert>
+
+</mapper>
