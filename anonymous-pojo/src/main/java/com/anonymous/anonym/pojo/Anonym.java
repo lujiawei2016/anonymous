@@ -249,11 +249,12 @@ public class Anonym implements Serializable {
 		super();
 	}
 
-	public Anonym(String anonymId, String nickName, String userName, String headerImg, String phone, String deviceId,
+	public Anonym(String anonymId, String nickName, String password, String userName, String headerImg, String phone, String deviceId,
 			Date createTime, Date updateTime) {
 		super();
 		this.anonymId = anonymId;
 		this.nickName = nickName;
+		this.password = password;
 		this.userName = userName;
 		this.headerImg = headerImg;
 		this.phone = phone;
@@ -261,5 +262,7 @@ public class Anonym implements Serializable {
 		this.createTime = createTime;
 		this.updateTime = updateTime;
 	}
+	
+	
 	
 }

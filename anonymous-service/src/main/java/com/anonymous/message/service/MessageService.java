@@ -16,13 +16,4 @@ public interface MessageService {
 	 */
 	public Object sendLoginMsg(String phone) throws Exception;
 	
-	/**
-	 * 快捷登陆
-	 * @param phone
-	 * @param code
-	 * @param deviceId
-	 * @return
-	 * @throws Exception
-	 */
-	public Object quickLogin(String phone,String code,String deviceId) throws Exception;
 }

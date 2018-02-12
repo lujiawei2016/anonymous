@@ -53,5 +53,24 @@
 		  #{updateTime}
 		 )
 	</insert>
+	
+	<!-- 更新用户 -->
+	<update id="updateAnonym" parameterType="com.anonymous.anonym.pojo.Anonym">
+		UPDATE 
+		  an_anonym an 
+		SET
+		  an.`nickName` = #{nickName},
+		  an.`userName` = #{userName},
+		  an.`password` = #{password},
+		  an.`headerImg` = #{headerImg},
+		  an.`phone` = #{phone},
+		  an.`isLock` = #{isLock},
+		  an.`deviceId` = #{deviceId},
+		  an.`lockReason` = #{lockReason},
+		  an.`delFlag` = #{delFlag},
+		  an.`createTime` = #{createTime},
+		  an.`updateTime` = #{updateTime} 
+		WHERE an.`anonymId` = #{anonymId} ;
+	</update>
 
 </mapper>

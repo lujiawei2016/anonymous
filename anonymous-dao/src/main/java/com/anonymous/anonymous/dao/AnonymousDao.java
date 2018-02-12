@@ -25,4 +25,10 @@ public interface AnonymousDao {
 	 * @param anonym
 	 */
 	public void saveAnonym(Anonym anonym);
+	
+	/**
+	 * 更新用户
+	 * @param anonym
+	 */
+	public void updateAnonym(Anonym anonym);
 }
