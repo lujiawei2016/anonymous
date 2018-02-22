@@ -31,6 +31,8 @@ public class Anonym implements Serializable {
 	
 	private String userName;                                              // 账号
 	
+	private String quickPassword;                                         // 快捷登陆密码
+	
 	private String password;                                              // 密码
 	
 	private String headerImg;                                             // 头像
@@ -244,17 +246,25 @@ public class Anonym implements Serializable {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+	
+	public String getQuickPassword() {
+		return quickPassword;
+	}
+
+	public void setQuickPassword(String quickPassword) {
+		this.quickPassword = quickPassword;
+	}
 
 	public Anonym() {
 		super();
 	}
 
-	public Anonym(String anonymId, String nickName, String password, String userName, String headerImg, String phone, String deviceId,
+	public Anonym(String anonymId, String nickName, String quickPassword, String userName, String headerImg, String phone, String deviceId,
 			Date createTime, Date updateTime) {
 		super();
 		this.anonymId = anonymId;
 		this.nickName = nickName;
-		this.password = password;
+		this.quickPassword = quickPassword;
 		this.userName = userName;
 		this.headerImg = headerImg;
 		this.phone = phone;

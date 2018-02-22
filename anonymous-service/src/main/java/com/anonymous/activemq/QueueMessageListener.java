@@ -9,6 +9,7 @@ import javax.jms.ObjectMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.anonymous.card.dao.CardCommentFabulousDao;
+import com.anonymous.card.dao.CardFabulousDao;
 
 public class QueueMessageListener implements MessageListener {
 	
@@ -16,6 +17,9 @@ public class QueueMessageListener implements MessageListener {
 	
 	@Autowired
 	private CardCommentFabulousDao cardCommentFabulousDao;
+	
+	@Autowired
+	private CardFabulousDao cardFabulousDao;
 
 	/**
 	 * 监听消息
@@ -25,11 +29,14 @@ public class QueueMessageListener implements MessageListener {
 	public void onMessage(Message message) {
 		
         try {
-        	String desName = message.getJMSDestination().toString();
-        	if("cardCommentFabulous".equals(desName.replaceAll(queue, ""))){
+        	String desName = message.getJMSDestination().toString().replaceAll(queue, "");
+        	if("cardCommentFabulous".equals(desName)){
         		//卡片评论点赞
 				HashMap<String, Object> map = (HashMap<String, Object>) ((ObjectMessage) message).getObject();
 				cardCommentFabulousDao.fabulous(map);
+        	}else if("cardFabulous".equals(desName)){
+        		HashMap<String, Object> map = (HashMap<String, Object>) ((ObjectMessage) message).getObject();
+        		cardFabulousDao.fabulous(map);
         	}
         } catch (Exception e) {
             e.printStackTrace();

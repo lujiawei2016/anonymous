@@ -58,28 +58,28 @@ public class LoginServiceImpl implements LoginService {
 			}else{
 				if(verificationCode.equals(code)){
 					//发送验证码和用户验证码一致
-					String password = CommonUtils.MD5(PasswordUtils.getStringRandom(8)); //生成随机密码并加密
+					String quickPassword = CommonUtils.MD5(PasswordUtils.getStringRandom(8)); //生成随机密码并加密
 					
 					//判断该手机号码是否已经注册
 					List<Anonym> anonymList = anonymousDao.findAnonymByPhone(phone);
 					if(anonymList != null && anonymList.size() != 0){
 						//手机号已经注册，更改密码进行更新
 						Anonym anonym = anonymList.get(0);
-						anonym.setPassword(password);
-						anonymousDao.updateAnonym(anonym);
+						anonym.setQuickPassword(quickPassword);
+						anonymousDao.updateQuickAnonym(anonym);
 						
 						resultMap.put("anonymId", anonym.getAnonymId());
-						resultMap.put("password", password);
+						resultMap.put("password", quickPassword);
 					}else{
 						//手机号未注册，写入到数据库中
 						
 						//nickName和headerImg考虑随机获取，现在暂时写死
 						String anonymId = UUID.randomUUID().toString();
-						Anonym anonym = new Anonym(anonymId, "张三", password, phone, "", phone, deviceId, new Date(), new Date());
-						anonymousDao.saveAnonym(anonym);
+						Anonym anonym = new Anonym(anonymId, "张三", quickPassword, phone, "", phone, deviceId, new Date(), new Date());
+						anonymousDao.saveQuickAnonym(anonym);
 						
-						resultMap.put("anonymId", anonym.getAnonymId());
-						resultMap.put("password", password);
+						resultMap.put("anonymId", anonymId);
+						resultMap.put("password", quickPassword);
 					}
 					
 					//登录成功之后删除验证码

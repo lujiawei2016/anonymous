@@ -6,6 +6,8 @@
 	<!-- 根据id查找用户 -->
 	<select id="findAnonymById" parameterType="String" resultType="com.anonymous.anonym.pojo.Anonym">
 		SELECT an.`anonymId`,
+		  an.`password`,
+		  an.`quickPassword`,
 		  an.`nickName`,
 		  an.`userName`,
 		  an.`headerImg`,
@@ -29,12 +31,12 @@
 	</select>
 	
 	<!-- 保存用户 -->
-	<insert id="saveAnonym" parameterType="com.anonymous.anonym.pojo.Anonym">
+	<insert id="saveQuickAnonym" parameterType="com.anonymous.anonym.pojo.Anonym">
 		INSERT INTO an_anonym (
 		  anonymId,
 		  nickName,
 		  userName,
-		  PASSWORD,
+		  quickPassword,
 		  headerImg,
 		  phone,
 		  deviceId,
@@ -45,7 +47,7 @@
 		  #{anonymId}, 
 		  #{nickName}, 
 		  #{userName}, 
-		  #{password}, 
+		  #{quickPassword}, 
 		  #{headerImg}, 
 		  #{phone}, 
 		  #{deviceId},
@@ -55,13 +57,13 @@
 	</insert>
 	
 	<!-- 更新用户 -->
-	<update id="updateAnonym" parameterType="com.anonymous.anonym.pojo.Anonym">
+	<update id="updateQuickAnonym" parameterType="com.anonymous.anonym.pojo.Anonym">
 		UPDATE 
 		  an_anonym an 
 		SET
 		  an.`nickName` = #{nickName},
 		  an.`userName` = #{userName},
-		  an.`password` = #{password},
+		  an.`quickPassword` = #{quickPassword},
 		  an.`headerImg` = #{headerImg},
 		  an.`phone` = #{phone},
 		  an.`isLock` = #{isLock},
@@ -70,7 +72,7 @@
 		  an.`delFlag` = #{delFlag},
 		  an.`createTime` = #{createTime},
 		  an.`updateTime` = #{updateTime} 
-		WHERE an.`anonymId` = #{anonymId} ;
+		WHERE an.`anonymId` = #{anonymId}
 	</update>
 
 </mapper>
