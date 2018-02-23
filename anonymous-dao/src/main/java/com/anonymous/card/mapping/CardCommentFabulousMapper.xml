@@ -2,6 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.anonymous.card.dao.CardCommentFabulousDao">
 
+	<!-- 判断是否点赞 -->
+	<select id="isFabulous" parameterType="hashmap" resultType="Integer">
+		SELECT 
+		  COUNT(*) 
+		FROM
+		  an_cardcommentfabulous an 
+		WHERE an.cardCommentId = #{cardCommentId} and an.anonymId=#{anonymId} 
+	</select>
+
 	<!-- 插入评论点赞 -->
 	<insert id="fabulous" parameterType="hashmap">
 		INSERT INTO an_cardcommentfabulous (

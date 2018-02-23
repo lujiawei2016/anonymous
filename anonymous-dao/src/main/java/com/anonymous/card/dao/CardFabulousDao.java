@@ -9,6 +9,13 @@ import java.util.HashMap;
  * @date    2018年2月22日下午4:49:59
  */
 public interface CardFabulousDao {
+	
+	/**
+	 * 判断是否点赞
+	 * @param map
+	 * @return
+	 */
+	public Integer isFabulous(HashMap<String, Object> map);
 
 	/**
 	 * 卡片点赞

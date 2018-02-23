@@ -33,10 +33,19 @@ public class QueueMessageListener implements MessageListener {
         	if("cardCommentFabulous".equals(desName)){
         		//卡片评论点赞
 				HashMap<String, Object> map = (HashMap<String, Object>) ((ObjectMessage) message).getObject();
-				cardCommentFabulousDao.fabulous(map);
+				Integer fabulousNum = cardCommentFabulousDao.isFabulous(map);
+				if(fabulousNum == null || fabulousNum == 0){
+					//如果没有点赞，则进行点赞
+					cardCommentFabulousDao.fabulous(map);
+				}
         	}else if("cardFabulous".equals(desName)){
+        		//卡片点赞
         		HashMap<String, Object> map = (HashMap<String, Object>) ((ObjectMessage) message).getObject();
-        		cardFabulousDao.fabulous(map);
+        		Integer fabulousNum = cardFabulousDao.isFabulous(map);
+        		if(fabulousNum == null || fabulousNum == 0){
+        			//如果没有点赞，则进行点赞
+        			cardFabulousDao.fabulous(map);
+        		}
         	}
         } catch (Exception e) {
             e.printStackTrace();

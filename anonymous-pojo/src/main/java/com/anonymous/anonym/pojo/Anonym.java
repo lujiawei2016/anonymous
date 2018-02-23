@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.anonymous.card.pojo.Card;
-import com.anonymous.card.pojo.CardCollectiion;
+import com.anonymous.card.pojo.CardCollection;
 import com.anonymous.card.pojo.CardComment;
 import com.anonymous.card.pojo.CardCommentFabulous;
 import com.anonymous.card.pojo.CardFabulous;
@@ -61,7 +61,7 @@ public class Anonym implements Serializable {
 	
 	private List<StoryComment> storyCommentList;                          // 评论的故事
 	
-	private List<CardCollectiion> cardCollectiionList;                    // 收藏的卡片
+	private List<CardCollection> cardCollectiionList;                    // 收藏的卡片
 	
 	private List<Card> cardList;                                          // 卡片
 	
@@ -191,11 +191,11 @@ public class Anonym implements Serializable {
 		this.storyCommentList = storyCommentList;
 	}
 
-	public List<CardCollectiion> getCardCollectiionList() {
+	public List<CardCollection> getCardCollectiionList() {
 		return cardCollectiionList;
 	}
 
-	public void setCardCollectiionList(List<CardCollectiion> cardCollectiionList) {
+	public void setCardCollectiionList(List<CardCollection> cardCollectiionList) {
 		this.cardCollectiionList = cardCollectiionList;
 	}
 

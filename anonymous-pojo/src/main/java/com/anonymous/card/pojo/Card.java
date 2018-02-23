@@ -34,7 +34,7 @@ public class Card implements Serializable {
 	
 	private Anonym anonym;                                      // 用户
 
-	private List<CardCollectiion> cardCollectiionList;          // 收藏的卡片
+	private List<CardCollection> cardCollectiionList;          // 收藏的卡片
 	
 	private List<CardFabulous> cardFabulousList;                // 卡片点赞
 	
@@ -112,11 +112,11 @@ public class Card implements Serializable {
 		this.delFlag = delFlag;
 	}
 
-	public List<CardCollectiion> getCardCollectiionList() {
+	public List<CardCollection> getCardCollectiionList() {
 		return cardCollectiionList;
 	}
 
-	public void setCardCollectiionList(List<CardCollectiion> cardCollectiionList) {
+	public void setCardCollectiionList(List<CardCollection> cardCollectiionList) {
 		this.cardCollectiionList = cardCollectiionList;
 	}
 

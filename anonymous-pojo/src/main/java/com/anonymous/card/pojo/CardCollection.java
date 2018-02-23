@@ -11,11 +11,11 @@ import com.anonymous.anonym.pojo.Anonym;
  * @version V1.0
  * @date    2017年12月12日下午4:59:45
  */
-public class CardCollectiion implements Serializable {
+public class CardCollection implements Serializable {
 
 	private static final long serialVersionUID = -3076040469404017166L;
 
-	private String cardCollectiionId;                  // 主键
+	private String cardCollectionId;                  // 主键
 	
 	private Card card;                                 // 收藏的卡片
 	
@@ -25,12 +25,16 @@ public class CardCollectiion implements Serializable {
 	
 	private Date updateTime;                           // 更新时间
 
-	public String getCardCollectiionId() {
-		return cardCollectiionId;
+	public String getCardCollectionId() {
+		return cardCollectionId;
 	}
 
-	public void setCardCollectiionId(String cardCollectiionId) {
-		this.cardCollectiionId = cardCollectiionId;
+	public void setCardCollectionId(String cardCollectionId) {
+		this.cardCollectionId = cardCollectionId;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	public Card getCard() {
