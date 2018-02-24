@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.anonymous.story.dao.StoryDao">
+
+	<!-- 保存故事 -->
+	<insert id="saveStory" parameterType="hashmap">
+		INSERT INTO an_story (
+		  storyId,
+		  storyTitle,
+		  storyContent,
+		  updateTime,
+		  createTime,
+		  anonymId
+		) 
+		VALUES(
+		 #{storyId},
+		 #{storyTitle},
+		 #{storyContent},
+		 #{updateTime},
+		 #{createTime},
+		 #{anonymId}
+		)
+	</insert>
+
+</mapper>

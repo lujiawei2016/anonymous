@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.dubbo.common.utils.StringUtils;
-import com.anonymous.anonymous.dao.AnonymousDao;
 import com.anonymous.common.utils.CommonUtils;
 import com.anonymous.message.auote.MessageQuote;
 import com.anonymous.message.service.MessageService;
@@ -38,9 +37,6 @@ public class MessageServiceImpl implements MessageService {
 	
 	@Value("${message_num}")
 	private String message_num;
-	
-	@Autowired
-	private AnonymousDao anonymousDao;
 	
 	/**
 	 * 发送登陆验证码

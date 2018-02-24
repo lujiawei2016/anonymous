@@ -29,6 +29,7 @@
 	<dubbo:service interface="com.anonymous.anonym.service.AnonymService" ref="provider_anonymService" timeout="1200000"></dubbo:service>
 	<dubbo:service interface="com.anonymous.card.service.CardFabulousService" ref="provider_cardFabulousService" timeout="1200000"></dubbo:service>
 	<dubbo:service interface="com.anonymous.card.service.CardCollectionService" ref="provider_cardCollectionService" timeout="1200000"></dubbo:service>
+	<dubbo:service interface="com.anonymous.story.service.StoryService" ref="provider_storyService" timeout="1200000"></dubbo:service>
 
     <!-- 和本地bean一样实现服务 -->
     <bean id="demoService" class="com.anonymous.test.service.impl.UserServiceImpl" />
@@ -43,5 +44,6 @@
     <bean id="provider_anonymService" class="com.anonymous.anonym.service.impl.AnonymServiceImpl"></bean>
     <bean id="provider_cardFabulousService" class="com.anonymous.card.service.impl.CardFabulousServiceImpl"></bean>
     <bean id="provider_cardCollectionService" class="com.anonymous.card.service.impl.CardCollectionServiceImpl"></bean>
+    <bean id="provider_storyService" class="com.anonymous.story.service.impl.StoryServiceImpl"></bean>
     
 </beans>  
