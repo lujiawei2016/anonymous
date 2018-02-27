@@ -2,6 +2,7 @@ package com.anonymous.story.service.impl;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -36,15 +37,42 @@ public class StoryServiceImpl implements StoryService {
 	private StoryDao storyDao;
 
 	/**
+	 * 查找最新故事
+	 */
+	@Override
+	public Object searchNewStory() throws Exception {
+		String result = "0";
+		String msg = "系统繁忙，请稍后重试";
+		
+		List<Map<String, Object>> storyList = storyDao.searchNewStory();
+		
+		Map<String, Object> resultMap = new HashMap<>();
+		resultMap.put("result", result);
+		resultMap.put("msg", msg);
+		resultMap.put("storyList", storyList);
+		return resultMap;
+	}
+
+	/**
 	 * 故事发布
 	 */
 	@Override
-	public Object release(String anonymId, String story_title, String story_article) throws Exception {
+	public Object release(String anonymId, String story_title, String story_article, String story_article_summary) throws Exception {
 		String result = "0";
 		String msg = "系统繁忙，请稍后重试";
 		Map<String, Object> resultMap = new HashMap<>();
 		
-		if(!StringUtils.isBlank(anonymId) && !StringUtils.isBlank(story_title) && !StringUtils.isBlank(story_article)){
+		if(!StringUtils.isBlank(anonymId) && !StringUtils.isBlank(story_title) && !StringUtils.isBlank(story_article) && !StringUtils.isBlank(story_article_summary)){
+			
+			//摘要概述
+			if(story_article_summary.contains("<br/>") || story_article_summary.contains("<br>")){
+				story_article_summary = story_article_summary.replaceAll("<br/>", "");
+				story_article_summary = story_article_summary.replaceAll("<br>", "");
+			}
+			if(story_article_summary.length() >= 60){
+				story_article_summary = story_article_summary.substring(0, 59);
+			}
+			
 			Anonym anonym = anonymousDao.findAnonymById(anonymId);
 			if(anonym != null){
 				String storyId = UUID.randomUUID().toString();
@@ -56,6 +84,7 @@ public class StoryServiceImpl implements StoryService {
 				map.put("updateTime", createTime);
 				map.put("createTime", createTime);
 				map.put("anonymId", anonymId);
+				map.put("storyArticleSummary", story_article_summary);
 				
 				storyDao.saveStory(map);
 				
@@ -71,5 +100,4 @@ public class StoryServiceImpl implements StoryService {
 		
 		return resultMap;
 	}
-
 }

@@ -9,12 +9,20 @@ package com.anonymous.story.service;
 public interface StoryService {
 
 	/**
-	 * 发布故事
-	 * @param anonymId       发布作者
-	 * @param story_title    标题
-	 * @param story_article  内容
+	 * 查找最新故事
 	 * @return
 	 * @throws Exception
 	 */
-	public Object release(String anonymId,String story_title,String story_article) throws Exception;
+	public Object searchNewStory() throws Exception;
+
+	/**
+	 * 发布故事
+	 * @param anonymId
+	 * @param story_title
+	 * @param story_article
+	 * @param story_article_summary
+	 * @return
+	 * @throws Exception
+	 */
+	public Object release(String anonymId,String story_title,String story_article,String story_article_summary) throws Exception;
 }

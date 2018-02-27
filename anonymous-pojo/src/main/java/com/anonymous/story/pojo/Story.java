@@ -22,6 +22,8 @@ public class Story implements Serializable {
 	
 	private String storyContent;                                       // 内容
 	
+	private String storyArticleSummary;                                // 概述
+	
 	private Anonym anonym;                                             // 作者（即用户）
 	
 	private int isLock;                                                // 是否锁定，1-未锁定，0-已锁定
@@ -134,6 +136,14 @@ public class Story implements Serializable {
 
 	public void setDelFlag(int delFlag) {
 		this.delFlag = delFlag;
+	}
+
+	public String getStoryArticleSummary() {
+		return storyArticleSummary;
+	}
+
+	public void setStoryArticleSummary(String storyArticleSummary) {
+		this.storyArticleSummary = storyArticleSummary;
 	}
 	
 }
