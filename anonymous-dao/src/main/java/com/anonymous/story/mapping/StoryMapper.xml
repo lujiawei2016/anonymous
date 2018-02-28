@@ -17,7 +17,9 @@
 		FROM
 		  an_story s 
 		  INNER JOIN an_anonym a 
-		    ON s.`anonymId` = a.`anonymId` ORDER BY s.`createTime` DESC LIMIT 0,10
+		    ON s.`anonymId` = a.`anonymId` 
+		  WHERE s.`isLock`=1 
+		  ORDER BY s.`createTime` DESC LIMIT 0,10
 	</select>
 
 	<!-- 保存故事 -->
