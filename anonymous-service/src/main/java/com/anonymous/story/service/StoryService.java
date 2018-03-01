@@ -25,4 +25,13 @@ public interface StoryService {
 	 * @throws Exception
 	 */
 	public Object release(String anonymId,String story_title,String story_article,String story_article_summary) throws Exception;
+
+	/**
+	 * 根据id查找故事
+	 * @param storyId
+	 * @param anonymId
+	 * @return
+	 * @throws Exception
+	 */
+	public Object findStoryById(String storyId,String anonymId) throws Exception;
 }

@@ -2,6 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.anonymous.story.dao.StoryDao">
 
+	<!-- 根据id获取故事 -->
+	<select id="findStoryById" resultType="com.anonymous.story.pojo.Story" parameterType="String">
+		SELECT 
+		  s.`anonymId`,
+		  s.`createTime`,
+		  s.`storyArticleSummary`,
+		  s.`storyContent`,
+		  s.`storyId`,
+		  s.`storyTitle` 
+		FROM
+		  an_story s 
+		WHERE s.`storyId` = #{storyId}
+	</select>
+
 	<!-- 查找最新故事 -->
 	<select id="searchNewStory" resultType="java.util.Map">
 		SELECT 
@@ -43,5 +57,55 @@
 		 #{anonymId}
 		)
 	</insert>
+	
+	<!-- 根据id查找故事 -->
+	<resultMap type="com.anonymous.story.pojo.Story" id="findStyroAllInfo">
+		<id column="storyId" property="storyId"/>
+		<result column="createTime" property="createTime"/>
+		<result column="storyArticleSummary" property="storyArticleSummary"/>
+		<result column="storyContent" property="storyContent"/>
+		<result column="storyTitle" property="storyTitle"/>
+		<association property="anonym" javaType="com.anonymous.anonym.pojo.Anonym">
+			<id column="anonymId" property="anonymId"/>
+			<result column="nickName" property="nickName"/>
+		</association>
+	</resultMap>
+	<select id="getStoryDetailInfo" parameterType="String" resultMap="findStyroAllInfo">
+		  SELECT 
+			  *
+			FROM
+			  an_story s 
+			WHERE s.`storyId` = #{storyId} 
+			  AND s.`isLock` = 1
+	</select>
+	
+	<!-- 判断该用户是否已经收藏此故事 -->
+	<select id="getCollectionByAnonymId" parameterType="String" resultType="Integer">
+		SELECT 
+		  COUNT(*) 
+		FROM
+		  an_storycollection s 
+		WHERE s.`storyId` = #{storyId} 
+		  AND s.`anonymId` = #{anonymId} 
+	</select>
+	
+	<!-- 判断该用户是否点赞此故事 -->
+	<select id="getFabulousByAnonymId" parameterType="String" resultType="Integer">
+		SELECT 
+		  COUNT(*) 
+		FROM
+		  an_storyfabulous s 
+		WHERE s.`storyId` = #{storyId} 
+		  AND s.`anonymId` = #{anonymId} 
+	</select>
+	
+	<!-- 获取故事评论数量 -->
+	<select id="getStoryCommentNum" parameterType="String" resultType="Integer">
+		SELECT 
+		  COUNT(*) 
+		FROM
+		  an_storycomment s 
+		WHERE s.`storyId` = #{storyId} 
+	</select>
 
 </mapper>

@@ -16,6 +16,7 @@ import com.alibaba.dubbo.common.utils.StringUtils;
 import com.anonymous.anonym.pojo.Anonym;
 import com.anonymous.anonymous.dao.AnonymousDao;
 import com.anonymous.story.dao.StoryDao;
+import com.anonymous.story.pojo.Story;
 import com.anonymous.story.service.StoryService;
 
 /**
@@ -93,6 +94,51 @@ public class StoryServiceImpl implements StoryService {
 				result = "1";
 				msg = "发布故事成功";
 			}
+		}
+		
+		resultMap.put("result", result);
+		resultMap.put("msg", msg);
+		
+		return resultMap;
+	}
+
+	/**
+	 * 根据id查找故事
+	 */
+	@Override
+	public Object findStoryById(String storyId,String anonymId) throws Exception {
+		String result = "0";
+		String msg = "系统繁忙，请稍后重试";
+		Map<String, Object> resultMap = new HashMap<>();
+		
+		if(!StringUtils.isBlank(storyId)){
+			Story story = storyDao.getStoryDetailInfo(storyId, anonymId);
+			if(story != null){
+				result = "1";
+				msg = "获取成功";
+				resultMap.put("storyContent", story.getStoryContent());
+				resultMap.put("authorId", story.getAnonym().getAnonymId());
+				
+				//获取是否点赞、是否收藏、评论数量
+				if(!StringUtils.isBlank(anonymId)){
+					Anonym anonym = anonymousDao.findAnonymById(anonymId);
+					if(anonym != null){
+						Integer collectionNum = storyDao.getCollectionByAnonymId(storyId, anonymId);
+						Integer fabulousNum = storyDao.getFabulousByAnonymId(storyId, anonymId);
+						Integer commentNum = storyDao.getStoryCommentNum(storyId);
+						resultMap.put("collectionNum", collectionNum);
+						resultMap.put("fabulousNum", fabulousNum);
+						resultMap.put("commentNum", commentNum);
+					}
+				}
+				
+			}else{
+				result = "3";
+				msg = "获取失败";
+			}
+		}else{
+			result = "2";
+			msg = "故事不合法";
 		}
 		
 		resultMap.put("result", result);

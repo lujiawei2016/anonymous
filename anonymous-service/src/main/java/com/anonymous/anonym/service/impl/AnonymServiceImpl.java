@@ -39,22 +39,19 @@ public class AnonymServiceImpl implements AnonymService {
 				if(redis_password.equals(password)){
 					//密码和redis的相同
 					return true;
-				}else{
-					//密码和redis不相同
-					return false;
 				}
-			}else{
-				//redis中没有该键
-				Anonym anonym = anonymousDao.findAnonymById(anonymId);
-				if(anonym != null){
-					//当密码等于快捷登陆密码或者登陆密码
-					if(password.equals(anonym.getPassword()) || password.equals(anonym.getQuickPassword())){
-						//将id和密码放入到redis中
-						redisUtils.put(redisKey, password);
-						redisUtils.exec();
-						
-						return true;
-					}
+			}
+			
+			//redis中没有该键
+			Anonym anonym = anonymousDao.findAnonymById(anonymId);
+			if(anonym != null){
+				//当密码等于快捷登陆密码或者登陆密码
+				if(password.equals(anonym.getPassword()) || password.equals(anonym.getQuickPassword())){
+					//将id和密码放入到redis中
+					redisUtils.put(redisKey, password);
+					redisUtils.exec();
+					
+					return true;
 				}
 			}
 		}
