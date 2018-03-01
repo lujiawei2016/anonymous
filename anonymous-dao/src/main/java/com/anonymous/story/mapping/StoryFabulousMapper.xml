@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.anonymous.story.dao.StoryFabulousDao">
+
+	<!-- 判断是否点赞 -->
+	<select id="isFabulous" parameterType="String" resultType="Integer">
+		SELECT 
+		  COUNT(*) 
+		FROM
+		  an_storyfabulous s 
+		WHERE s.`anonymId` = #{anonymId} 
+		  AND s.`storyId` = #{storyId} 
+	</select>
+	
+	<!-- 插入一条点赞数据 -->
+	<insert id="fabulous" parameterType="hashmap">
+		INSERT INTO an_storyfabulous (
+		  storyFabulousId,
+		  createTime,
+		  updateTime,
+		  storyId,
+		  anonymId
+		) 
+		VALUES(
+		  #{storyFabulousId},
+		  #{createTime},
+		  #{updateTime},
+		  #{storyId},
+		  #{anonymId}
+		)
+	</insert>
+
+</mapper>
