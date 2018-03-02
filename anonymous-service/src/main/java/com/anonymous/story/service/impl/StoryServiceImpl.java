@@ -125,13 +125,14 @@ public class StoryServiceImpl implements StoryService {
 					if(anonym != null){
 						Integer collectionNum = storyDao.getCollectionByAnonymId(storyId, anonymId);
 						Integer fabulousNum = storyDao.getFabulousByAnonymId(storyId, anonymId);
-						Integer commentNum = storyDao.getStoryCommentNum(storyId);
-						resultMap.put("collectionNum", collectionNum);
-						resultMap.put("fabulousNum", fabulousNum);
-						resultMap.put("commentNum", commentNum);
+						
+						resultMap.put("collectionNum", collectionNum);   // 故事是否收藏
+						resultMap.put("fabulousNum", fabulousNum);       // 故事是否点赞
+						
 					}
 				}
-				
+				Integer commentNum = storyDao.getStoryCommentNum(storyId);
+				resultMap.put("commentNum", commentNum);                  // 评论数量
 			}else{
 				result = "3";
 				msg = "获取失败";

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.anonymous.story.dao.StoryCommentDao">
+
+	<!-- 故事评论 -->
+	<insert id="comment" parameterType="hashmap">
+		INSERT INTO an_storycomment (
+		  storyCommentId,
+		  storyCommentContent,
+		  styroReplyCommentId,
+		  createTime,
+		  updateTime,
+		  storyId,
+		  anonymId
+		) 
+		VALUES(
+		  #{storyCommentId},
+		  #{storyCommentContent},
+		  #{styroReplyCommentId},
+		  #{createTime},
+		  #{updateTime},
+		  #{storyId},
+		  #{anonymId}
+		) 
+	</insert>
+
+</mapper>

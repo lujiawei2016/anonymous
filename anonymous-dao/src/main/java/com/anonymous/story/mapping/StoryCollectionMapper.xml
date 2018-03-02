@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.anonymous.story.dao.StoryCollectionDao">
+	
+	<!-- 判断是否收藏该故事 -->
+	<select id="isCollection" parameterType="String" resultType="Integer">
+		SELECT 
+		  COUNT(*) 
+		FROM
+		  an_storycollection s 
+		WHERE s.`storyId` = #{storyId} 
+		  AND s.`anonymId` = #{anonymId}
+	</select>
+	
+	<!-- 收藏故事 -->
+	<insert id="collection" parameterType="hashmap">
+		INSERT INTO an_storycollection (
+		  storyCollectiionId,
+		  createTime,
+		  updateTime,
+		  anonymId,
+		  storyId
+		) 
+		VALUES(
+		  #{storyCollectiionId},
+		  #{createTime},
+		  #{updateTime},
+		  #{anonymId},
+		  #{storyId}
+		)
+	</insert>
+	
+</mapper>
