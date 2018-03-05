@@ -23,5 +23,61 @@
 		  #{anonymId}
 		) 
 	</insert>
+	
+	<!-- 查找故事评论 -->
+	<select id="searchComment" parameterType="hashmap" resultType="hashmap">
+		SELECT 
+		  anonym.`headerImg`,
+		  anonym.`nickName`,
+		  storycomment.`storyCommentId`,
+		  storycomment.`storyCommentContent`,
+		  storycomment.`createTime`,
+		  (SELECT COUNT(*) FROM an_storycommentfabulous commentfabulous WHERE commentfabulous.`storyCommentId` = storycomment.`storyCommentId`) AS fabulousNum,
+		  (SELECT COUNT(*) FROM an_storycommentfabulous commentfabulous WHERE commentfabulous.`storyCommentId` = storycomment.`storyCommentId` AND commentfabulous.`anonymId`=#{anonymId}) isFabulous
+		FROM
+		  an_storycomment storycomment 
+		  INNER JOIN an_anonym anonym 
+		    ON storycomment.`anonymId` = anonym.`anonymId` 
+		    WHERE storycomment.`storyId`=#{storyId} 
+		    ORDER BY storycomment.createTime DESC
+		  LIMIT #{offset},#{length};
+	</select>
+
+	<!-- 根据id查找评论 -->
+	<select id="findStoryCommentById" parameterType="String" resultType="com.anonymous.story.pojo.StoryComment">
+		SELECT 
+		  * 
+		FROM
+		  an_storycomment s 
+		WHERE s.`storyCommentId` = #{storyCommentId}; 
+	</select>
+	
+	<!-- 判断是否点赞 -->
+	<select id="isFabulous" parameterType="String" resultType="Integer">
+		SELECT 
+		  COUNT(*) 
+		FROM
+		  an_storycommentfabulous fabulous 
+		WHERE fabulous.`anonymId` = #{anonymId} 
+		  AND fabulous.`storyCommentId` = #{storyCommentId}
+	</select>
+	
+	<!-- 点赞 -->
+	<insert id="fabulous" parameterType="hashmap">
+		INSERT INTO an_storycommentfabulous (
+		  storyCommentFabulousId,
+		  createTime,
+		  updateTime,
+		  storyCommentId,
+		  anonymId
+		) 
+		VALUES(
+		  #{storyCommentFabulousId},
+		  #{createTime},
+		  #{updateTime},
+		  #{storyCommentId},
+		  #{anonymId}
+		)
+	</insert>
 
 </mapper>

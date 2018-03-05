@@ -18,4 +18,23 @@ public interface StoryCommentService {
 	 * @throws Exception
 	 */
 	public Object comment(String anonymId,String storyReplyCommentId,String storyId,String commentContent) throws Exception;
+	
+	/**
+	 * 
+	 * @param storyId
+	 * @param anonymId
+	 * @param offset
+	 * @param length
+	 * @return
+	 * @throws Exception
+	 */
+	public Object searchComment(String storyId,String anonymId,int offset,int length) throws Exception;
+	
+	/**
+	 * 故事评论点赞
+	 * @param storyCommentId
+	 * @param anonymId
+	 * @return
+	 */
+	public Object storyCommentFabulous(String storyCommentId,String anonymId);
 }

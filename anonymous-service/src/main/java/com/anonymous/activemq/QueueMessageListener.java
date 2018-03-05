@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.anonymous.card.dao.CardCommentFabulousDao;
 import com.anonymous.card.dao.CardFabulousDao;
+import com.anonymous.story.dao.StoryCommentDao;
 import com.anonymous.story.dao.StoryFabulousDao;
 import com.anonymous.story.pojo.StoryFabulous;
 
@@ -26,6 +27,9 @@ public class QueueMessageListener implements MessageListener {
 	
 	@Autowired
 	private StoryFabulousDao storyFabulousDao;
+	
+	@Autowired
+	private StoryCommentDao storyCommentDao;
 
 	/**
 	 * 监听消息
@@ -62,6 +66,14 @@ public class QueueMessageListener implements MessageListener {
         		if(fabulousNum == null || fabulousNum == 0){
         			//如果没有点赞，则进行点赞
         			storyFabulousDao.fabulous(map);
+        		}
+        	}else if("storyCommentFabulous".equals(desName)){
+        		//故事评论点赞
+        		HashMap<String, Object> map = (HashMap<String, Object>) ((ObjectMessage) message).getObject();
+        		Integer fabulousNum = storyCommentDao.isFabulous(map.get("storyCommentId").toString(), map.get("anonymId").toString());
+        		if(fabulousNum == null || fabulousNum == 0){
+        			//如果没有点赞，则进行点赞
+        			storyCommentDao.fabulous(map);
         		}
         	}
         } catch (Exception e) {
