@@ -28,6 +28,7 @@
                 <value>classpath:redis-key.properties</value>
                 <value>classpath:dubbo.properties</value>
                 <value>classpath:activemq.properties</value>
+                <value>classpath:config.properties</value>
             </list>
         </property>
     </bean>

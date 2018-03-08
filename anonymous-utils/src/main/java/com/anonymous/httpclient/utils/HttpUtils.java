@@ -11,6 +11,7 @@ import java.util.Map.Entry;
 import java.util.UUID;
 
 import org.apache.commons.httpclient.DefaultHttpMethodRetryHandler;
+import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
 import org.apache.commons.httpclient.NameValuePair;
@@ -187,7 +188,6 @@ public class HttpUtils {
 			// 返回成功状态码200
 			if (statusCode == 200) {
 				String str = post.getResponseBodyAsString();
-				post.releaseConnection();
 				return str;
 			}
 		} catch (Exception e) {
@@ -226,10 +226,10 @@ public class HttpUtils {
 				post.setRequestBody(basicNameValuePairs.toArray(new NameValuePair[basicNameValuePairs.size()]));
 			// 访问指定URL并取得返回状态码
 			int statusCode = getHttpClient().executeMethod(post);
+			System.out.println(post.getResponseBodyAsString());
 			// 返回成功状态码200
 			if (statusCode == 200) {
 				String str = post.getResponseBodyAsString();
-				post.releaseConnection();
 				return str;
 			}
 		} catch (Exception e) {

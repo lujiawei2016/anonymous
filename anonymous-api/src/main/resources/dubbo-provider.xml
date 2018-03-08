@@ -33,6 +33,7 @@
 	<dubbo:service interface="com.anonymous.story.service.StoryFabulousService" ref="provider_storyFabulousService" timeout="1200000"></dubbo:service>
 	<dubbo:service interface="com.anonymous.story.service.StoryCollectionService" ref="provider_storyCollectionService" timeout="1200000"></dubbo:service>
 	<dubbo:service interface="com.anonymous.story.service.StoryCommentService" ref="provider_storyCommentService" timeout="1200000"></dubbo:service>
+	<dubbo:service interface="com.anonymous.rongcloud.service.RongCloudService" ref="provider_rongCloudService" timeout="1200000"></dubbo:service>
 
     <!-- 和本地bean一样实现服务 -->
     <bean id="demoService" class="com.anonymous.test.service.impl.UserServiceImpl" />
@@ -51,5 +52,6 @@
     <bean id="provider_storyFabulousService" class="com.anonymous.story.service.impl.StoryFabulousServiceImpl"></bean>
     <bean id="provider_storyCollectionService" class="com.anonymous.story.service.impl.StoryCollectionServiceImpl"></bean>
     <bean id="provider_storyCommentService" class="com.anonymous.story.service.impl.StoryCommentServiceImpl"></bean>
+    <bean id="provider_rongCloudService" class="com.anonymous.rongcloud.service.impl.RongCloudServiceImpl"></bean>
     
 </beans>  
