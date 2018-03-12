@@ -66,7 +66,7 @@ public class RongCloudServiceImpl implements RongCloudService {
 		Map<String, Object> resultMap = new HashMap<>();
 		
 		//判断redis中是否有该token
-		String rongKey = rongcloud+"_"+rongcloud;
+		String rongKey = rongcloud+"_"+anonymId;
 		String token = redisUtils.get(rongKey);
 		if(StringUtils.isBlank(token)){
 			//redis中没有token，生成token
