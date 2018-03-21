@@ -43,6 +43,12 @@ public class Anonym implements Serializable {
 	
 	private String deviceId;                                              // 设备唯一标识
 	
+	private String personalSignature;                                     // 个性签名
+	
+	private String sex;                                                   // 性别
+	
+	private String city;                                                  // 城市
+	
 	private String lockReason;                                            // 锁定理由
 	
 	private int delFlag;                                                  // 删除标识，1-未删除，0-已删除
@@ -257,6 +263,30 @@ public class Anonym implements Serializable {
 
 	public Anonym() {
 		super();
+	}
+	
+	public String getPersonalSignature() {
+		return personalSignature;
+	}
+
+	public void setPersonalSignature(String personalSignature) {
+		this.personalSignature = personalSignature;
+	}
+	
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+	
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
 	}
 
 	public Anonym(String anonymId, String nickName, String quickPassword, String userName, String headerImg, String phone, String deviceId,
