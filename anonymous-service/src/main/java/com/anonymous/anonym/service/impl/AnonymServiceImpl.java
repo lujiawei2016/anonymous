@@ -1,5 +1,9 @@
 package com.anonymous.anonym.service.impl;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -7,7 +11,11 @@ import com.alibaba.dubbo.common.utils.StringUtils;
 import com.anonymous.anonym.pojo.Anonym;
 import com.anonymous.anonym.service.AnonymService;
 import com.anonymous.anonymous.dao.AnonymousDao;
+import com.anonymous.card.dao.CardDao;
+import com.anonymous.card.pojo.Card;
 import com.anonymous.redis.utils.RedisUtils;
+import com.anonymous.story.dao.StoryDao;
+import com.anonymous.story.pojo.Story;
 
 /**
  * 用户service实现类
@@ -19,6 +27,12 @@ public class AnonymServiceImpl implements AnonymService {
 	
 	@Autowired
 	private AnonymousDao anonymousDao;
+	
+	@Autowired
+	private StoryDao storyDao;
+	
+	@Autowired
+	private CardDao cardDao;
 	
 	@Value("${judgeAnonymKey}")
 	private String judgeAnonymKey;
@@ -56,6 +70,30 @@ public class AnonymServiceImpl implements AnonymService {
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * 获取用户信息
+	 */
+	@Override
+	public Object getAnonymInfoById(String anonymId) throws Exception {
+		if(!StringUtils.isBlank(anonymId)){
+			Anonym anonym = anonymousDao.findAnonymInfoById(anonymId);
+			if(anonym != null){
+				Map<String, Object> map = new HashMap<>();
+				
+				//获取该用户发布的故事
+				List<Story> storyList = storyDao.findStoryByAnonymId(anonymId);
+				
+				//获取该用户发布的卡片
+				List<Card> cardList = cardDao.findCardByAnonymId(anonymId);
+				
+				map.put("anonym", anonym);//用户
+				map.put("storyList", storyList);//用户
+				map.put("cardList", cardList);//用户
+			}
+		}
+		return null;
 	}
 
 

@@ -16,4 +16,12 @@ public interface AnonymService {
 	 */
 	public boolean judgeAnonym(String anonymId,String password);
 	
+	/**
+	 * 获取用户信息
+	 * @param anonymId
+	 * @return
+	 * @throws Exception
+	 */
+	public Object getAnonymInfoById(String anonymId) throws Exception;
+	
 }

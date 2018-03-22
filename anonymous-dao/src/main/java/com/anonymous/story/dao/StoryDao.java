@@ -64,4 +64,11 @@ public interface StoryDao {
 	 * @return
 	 */
 	public Integer getStoryCommentNum(@Param("storyId") String storyId);
+	
+	/**
+	 * 获取用户发布的故事
+	 * @param anonymId
+	 * @return
+	 */
+	public List<Story> findStoryByAnonymId(@Param("anonymId") String anonymId);
 }

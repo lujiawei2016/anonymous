@@ -54,5 +54,18 @@
 		  AND card.`isLock` = 1
 		ORDER BY card.`createTime` DESC ;
 	</select>
+	
+	<!-- 获取用户发布的卡片 -->
+	<select id="findCardByAnonymId" parameterType="String" resultType="com.anonymous.card.pojo.Card">
+		SELECT 
+		  c.`anonymId`,
+		  c.`cardContent`,
+		  c.`cardId`,
+		  c.`cardImg`,
+		  c.`createTime` 
+		FROM
+		  an_card c 
+		WHERE c.`anonymId` = #{anonymId}
+	</select>
 
 </mapper>

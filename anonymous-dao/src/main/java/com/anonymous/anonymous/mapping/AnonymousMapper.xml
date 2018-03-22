@@ -74,5 +74,22 @@
 		  an.`updateTime` = #{updateTime} 
 		WHERE an.`anonymId` = #{anonymId}
 	</update>
+	
+	<!-- 根据主键查询信息 -->
+	<select id="findAnonymInfoById" parameterType="String" resultType="com.anonymous.anonym.pojo.Anonym">
+		SELECT 
+		  a.`anonymId`,
+		  a.`backgroundImg`,
+		  a.`city`,
+		  a.`deviceId`,
+		  a.`headerImg`,
+		  a.`nickName`,
+		  a.`personalSignature`,
+		  a.`phone`,
+		  a.`sex`,
+		  a.`userName` 
+		FROM
+		  an_anonym a WHERE a.`anonymId`=#{anonymId};
+	</select>
 
 </mapper>

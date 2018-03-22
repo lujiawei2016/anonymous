@@ -23,6 +23,7 @@
 		  s.`storyTitle`,
 		  s.`storyContent`,
 		  s.`storyArticleSummary`,
+		  s.`anonymId` AS authorId,
 		  a.`headerImg`,
 		  a.`nickName` ,
 		  (SELECT COUNT(*) FROM an_storycollection WHERE storyId=s.`storyId`) AS collection,
@@ -106,6 +107,19 @@
 		FROM
 		  an_storycomment s 
 		WHERE s.`storyId` = #{storyId} 
+	</select>
+	
+	<!-- 获取用户发布的故事 -->
+	<select id="findStoryByAnonymId" parameterType="String" resultType="com.anonymous.story.pojo.Story">
+		SELECT 
+		  s.`anonymId`,
+		  s.`storyArticleSummary`,
+		  s.`storyContent`,
+		  s.`storyId`,
+		  s.`storyTitle` 
+		FROM
+		  an_story s 
+		WHERE s.`anonymId` = #{anonymId} 
 	</select>
 
 </mapper>

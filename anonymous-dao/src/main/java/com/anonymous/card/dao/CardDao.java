@@ -3,6 +3,8 @@ package com.anonymous.card.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.anonymous.card.pojo.Card;
 
 /**
@@ -31,4 +33,11 @@ public interface CardDao {
 	 * @return
 	 */
 	public List<Map<String, Object>> searchNewCard();
+	
+	/**
+	 * 获取用户发布的卡片
+	 * @param anonymId
+	 * @return
+	 */
+	public List<Card> findCardByAnonymId(@Param("anonymId") String anonymId);
 }

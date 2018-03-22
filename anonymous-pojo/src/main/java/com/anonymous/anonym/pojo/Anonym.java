@@ -37,6 +37,8 @@ public class Anonym implements Serializable {
 	
 	private String headerImg;                                             // 头像
 	
+	private String backgroundImg;                                         // 背景图
+	
 	private String phone;                                                 // 手机号码
 	
 	private int isLock;                                                   // 是否锁定，1-未锁定，0-已锁定
@@ -287,6 +289,14 @@ public class Anonym implements Serializable {
 
 	public void setCity(String city) {
 		this.city = city;
+	}
+	
+	public String getBackgroundImg() {
+		return backgroundImg;
+	}
+
+	public void setBackgroundImg(String backgroundImg) {
+		this.backgroundImg = backgroundImg;
 	}
 
 	public Anonym(String anonymId, String nickName, String quickPassword, String userName, String headerImg, String phone, String deviceId,

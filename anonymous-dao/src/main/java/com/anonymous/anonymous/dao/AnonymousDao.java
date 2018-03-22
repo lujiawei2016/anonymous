@@ -31,4 +31,11 @@ public interface AnonymousDao {
 	 * @param anonym
 	 */
 	public void updateQuickAnonym(Anonym anonym);
+	
+	/**
+	 * 根据主键查询用户信息
+	 * @param anonymId
+	 * @return
+	 */
+	public Anonym findAnonymInfoById(String anonymId);
 }
