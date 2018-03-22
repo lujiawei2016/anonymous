@@ -39,5 +39,5 @@ public interface CardDao {
 	 * @param anonymId
 	 * @return
 	 */
-	public List<Card> findCardByAnonymId(@Param("anonymId") String anonymId);
+	public List<Map<String, Object>> findCardByAnonymId(@Param("anonymId") String anonymId);
 }

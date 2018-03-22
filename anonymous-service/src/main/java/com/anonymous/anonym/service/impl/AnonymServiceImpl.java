@@ -1,5 +1,6 @@
 package com.anonymous.anonym.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -77,23 +78,46 @@ public class AnonymServiceImpl implements AnonymService {
 	 */
 	@Override
 	public Object getAnonymInfoById(String anonymId) throws Exception {
+		String result = "0";
+		String msg = "系统繁忙，请稍后重试";
+		Map<String, Object> resultMap = new HashMap<>();
 		if(!StringUtils.isBlank(anonymId)){
 			Anonym anonym = anonymousDao.findAnonymInfoById(anonymId);
 			if(anonym != null){
-				Map<String, Object> map = new HashMap<>();
+				//获取该用户发布的卡片
+				List<Map<String, Object>> cardList = cardDao.findCardByAnonymId(anonymId);
 				
 				//获取该用户发布的故事
-				List<Story> storyList = storyDao.findStoryByAnonymId(anonymId);
+				List<Map<String, Object>> storyList = storyDao.findStoryByAnonymId(anonymId);
 				
-				//获取该用户发布的卡片
-				List<Card> cardList = cardDao.findCardByAnonymId(anonymId);
+				result = "1";
+				msg = "获取成功";
 				
-				map.put("anonym", anonym);//用户
-				map.put("storyList", storyList);//用户
-				map.put("cardList", cardList);//用户
+				//封装用户信息
+				Map<String, Object> anonymMap = new HashMap<>();
+				anonymMap.put("anonymId", anonym.getAnonymId());
+				anonymMap.put("backgroundImg", anonym.getBackgroundImg() == null ? "" : anonym.getBackgroundImg());
+				anonymMap.put("city", anonym.getCity() == null ? "" : anonym.getCity());
+				anonymMap.put("deviceId", anonym.getDeviceId() == null ? "" : anonym.getDeviceId());
+				anonymMap.put("headerImg", anonym.getHeaderImg() == null ? "" : anonym.getHeaderImg());
+				anonymMap.put("nickName", anonym.getNickName() == null ? "" : anonym.getNickName());
+				anonymMap.put("personalSignature", anonym.getPersonalSignature() == null ? "" : anonym.getPersonalSignature());
+				anonymMap.put("phone", anonym.getPhone() == null ? "" : anonym.getPhone());
+				anonymMap.put("sex", anonym.getSex() == null ? "" : anonym.getSex());
+				anonymMap.put("userName", anonym.getUserName() == null ? "" : anonym.getUserName());
+				
+				//封装卡片信息
+				
+				resultMap.put("anonymMap", anonymMap);//用户
+				//resultMap.put("storyList", storyList);//用户
+				//resultMap.put("cardList", cardList);//用户
 			}
 		}
-		return null;
+		
+		resultMap.put("result", result);
+		resultMap.put("msg", msg);
+		
+		return resultMap;
 	}
 
 

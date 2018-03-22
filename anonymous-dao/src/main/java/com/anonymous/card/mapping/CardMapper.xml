@@ -56,16 +56,20 @@
 	</select>
 	
 	<!-- 获取用户发布的卡片 -->
-	<select id="findCardByAnonymId" parameterType="String" resultType="com.anonymous.card.pojo.Card">
+	<select id="findCardByAnonymId" parameterType="String" resultType="java.util.Map">
 		SELECT 
-		  c.`anonymId`,
-		  c.`cardContent`,
-		  c.`cardId`,
-		  c.`cardImg`,
-		  c.`createTime` 
+		  card.`anonymId`,
+		  card.`cardContent`,
+		  card.`cardId`,
+		  card.`cardImg`,
+		  card.`createTime`,
+		  (SELECT COUNT(*) FROM an_cardcollection collection WHERE collection.`cardId`=card.`cardId`) AS collnum,
+		  (SELECT COUNT(*) FROM an_cardcomment comm WHERE comm.`cardId`=card.`cardId`) AS commnum,
+		  (SELECT COUNT(*) FROM an_cardfabulous fabul WHERE fabul.`cardId`=card.`cardId`) AS fabulnum
 		FROM
-		  an_card c 
-		WHERE c.`anonymId` = #{anonymId}
+		  an_card card
+		WHERE card.`anonymId` = #{anonymId}
+		  AND card.`isLock` = 1
 	</select>
 
 </mapper>
