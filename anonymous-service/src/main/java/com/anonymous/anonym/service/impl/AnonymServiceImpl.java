@@ -119,6 +119,4 @@ public class AnonymServiceImpl implements AnonymService {
 		
 		return resultMap;
 	}
-
-
 }

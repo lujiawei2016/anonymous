@@ -71,4 +71,5 @@ public interface StoryDao {
 	 * @return
 	 */
 	public List<Map<String, Object>> findStoryByAnonymId(@Param("anonymId") String anonymId);
+	
 }
