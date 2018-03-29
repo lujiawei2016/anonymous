@@ -24,4 +24,24 @@ public interface AnonymService {
 	 */
 	public Object getAnonymInfoById(String anonymId) throws Exception;
 	
+	/**
+	 * 保存头像
+	 * @param headerImg
+	 * @param anonymId
+	 * @return
+	 * @throws Exception
+	 */
+	public Object saveHeadImg(String headerImg,String anonymId) throws Exception;
+	
+	/**
+	 * 更新用户信息
+	 * @param anonymId
+	 * @param nickName
+	 * @param personalSignature
+	 * @param sex
+	 * @return
+	 * @throws Exception
+	 */
+	public Object updateMe(String anonymId,String nickName,String personalSignature,String sex) throws Exception;
+	
 }

@@ -47,7 +47,7 @@ public class Anonym implements Serializable {
 	
 	private String personalSignature;                                     // 个性签名
 	
-	private String sex;                                                   // 性别
+	private String sex;                                                   // 性别，1-男；2-女；3-外星人
 	
 	private String city;                                                  // 城市
 	

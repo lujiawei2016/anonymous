@@ -1,10 +1,11 @@
 package com.anonymous.anonym.service.impl;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -13,10 +14,8 @@ import com.anonymous.anonym.pojo.Anonym;
 import com.anonymous.anonym.service.AnonymService;
 import com.anonymous.anonymous.dao.AnonymousDao;
 import com.anonymous.card.dao.CardDao;
-import com.anonymous.card.pojo.Card;
 import com.anonymous.redis.utils.RedisUtils;
 import com.anonymous.story.dao.StoryDao;
-import com.anonymous.story.pojo.Story;
 
 /**
  * 用户service实现类
@@ -25,6 +24,8 @@ import com.anonymous.story.pojo.Story;
  * @date    2018年2月22日上午10:49:24
  */
 public class AnonymServiceImpl implements AnonymService {
+	
+	private static final Logger logger = Logger.getLogger(AnonymServiceImpl.class);
 	
 	@Autowired
 	private AnonymousDao anonymousDao;
@@ -84,11 +85,6 @@ public class AnonymServiceImpl implements AnonymService {
 		if(!StringUtils.isBlank(anonymId)){
 			Anonym anonym = anonymousDao.findAnonymInfoById(anonymId);
 			if(anonym != null){
-				//获取该用户发布的卡片
-				List<Map<String, Object>> cardList = cardDao.findCardByAnonymId(anonymId);
-				
-				//获取该用户发布的故事
-				List<Map<String, Object>> storyList = storyDao.findStoryByAnonymId(anonymId);
 				
 				result = "1";
 				msg = "获取成功";
@@ -106,11 +102,69 @@ public class AnonymServiceImpl implements AnonymService {
 				anonymMap.put("sex", anonym.getSex() == null ? "" : anonym.getSex());
 				anonymMap.put("userName", anonym.getUserName() == null ? "" : anonym.getUserName());
 				
-				//封装卡片信息
-				
 				resultMap.put("anonymMap", anonymMap);//用户
-				//resultMap.put("storyList", storyList);//用户
-				//resultMap.put("cardList", cardList);//用户
+			}
+		}
+		
+		resultMap.put("result", result);
+		resultMap.put("msg", msg);
+		
+		return resultMap;
+	}
+
+	/**
+	 * 保存用户头像
+	 */
+	@Override
+	public Object saveHeadImg(String headerImg, String anonymId) throws Exception {
+		String result = "0";
+		String msg = "系统繁忙，请稍后重试";
+		Map<String, Object> resultMap = new HashMap<>();
+		if(!StringUtils.isBlank(headerImg) && !StringUtils.isBlank(anonymId)){
+			Anonym anonym = anonymousDao.findAnonymById(anonymId);
+			if(anonym != null){
+				result = "1";
+				msg = "更新成功";
+				resultMap.put("headerImg", headerImg);
+				anonym.setHeaderImg(headerImg);
+				anonym.setUpdateTime(new Date());
+				anonymousDao.updateQuickAnonym(anonym);
+			}
+		}
+		
+		resultMap.put("result", result);
+		resultMap.put("msg", msg);
+		
+		return resultMap;
+	}
+
+	/**
+	 * 更新个人信息
+	 */
+	@Override
+	public Object updateMe(String anonymId, String nickName, String personalSignature, String sex) throws Exception {
+		String result = "0";
+		String msg = "系统繁忙，请稍后重试";
+		Map<String, Object> resultMap = new HashMap<>();
+		
+		if(!StringUtils.isBlank(anonymId)){
+			Anonym anonym = anonymousDao.findAnonymById(anonymId);
+			if(anonym != null){
+				if("1".equals(sex) || "2".equals(sex) || "3".equals(sex)){
+					//sex必须为1或者2或者3,1-男；2-女；3-外星人
+					anonym.setNickName(nickName);
+					anonym.setPersonalSignature(personalSignature);
+					anonym.setSex(sex);
+					anonymousDao.updateQuickAnonym(anonym);
+					
+					result = "1";
+					msg = "更新成功";
+					
+					logger.info("更新信息成功");
+				}else{
+					result = "2";
+					msg = "性别不正确";
+				}
 			}
 		}
 		

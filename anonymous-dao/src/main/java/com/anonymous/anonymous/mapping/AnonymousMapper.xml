@@ -13,7 +13,11 @@
 		  an.`headerImg`,
 		  an.`phone`,
 		  an.`deviceId`,
-		  an.`createTime` 
+		  an.`createTime`,
+		  an.`backgroundImg`,
+		  an.`personalSignature`,
+		  an.`sex`,
+		  an.`city` 
 		FROM an_anonym an 
 		WHERE an.`anonymId`=#{anonymId}
 	</select>
@@ -26,7 +30,11 @@
 		  an.`headerImg`,
 		  an.`phone`,
 		  an.`deviceId`,
-		  an.`createTime` 
+		  an.`createTime`,
+		  an.`backgroundImg`,
+		  an.`personalSignature`,
+		  an.`sex`,
+		  an.`city`
 		FROM an_anonym an WHERE an.phone=#{phone}
 	</select>
 	
@@ -41,7 +49,11 @@
 		  phone,
 		  deviceId,
 		  createTime,
-		  updateTime
+		  updateTime,
+		  backgroundImg,
+		  personalSignature,
+		  sex,
+		  city
 		) 
 		VALUES (
 		  #{anonymId}, 
@@ -52,7 +64,11 @@
 		  #{phone}, 
 		  #{deviceId},
 		  #{createTime},
-		  #{updateTime}
+		  #{updateTime},
+		  #{backgroundImg},
+		  #{personalSignature},
+		  #{sex},
+		  #{city}
 		 )
 	</insert>
 	
@@ -71,7 +87,11 @@
 		  an.`lockReason` = #{lockReason},
 		  an.`delFlag` = #{delFlag},
 		  an.`createTime` = #{createTime},
-		  an.`updateTime` = #{updateTime} 
+		  an.`updateTime` = #{updateTime},
+		  an.`backgroundImg` = #{backgroundImg},
+		  an.`personalSignature` = #{personalSignature},
+		  an.`sex` = #{sex},
+		  an.`city` = #{city}
 		WHERE an.`anonymId` = #{anonymId}
 	</update>
 	
@@ -87,9 +107,9 @@
 		  a.`personalSignature`,
 		  a.`phone`,
 		  a.`sex`,
-		  a.`userName` 
+		  a.`userName`
 		FROM
-		  an_anonym a WHERE a.`anonymId`=#{anonymId};
+		  an_anonym a WHERE a.`anonymId`=#{anonymId}
 	</select>
 
 </mapper>
