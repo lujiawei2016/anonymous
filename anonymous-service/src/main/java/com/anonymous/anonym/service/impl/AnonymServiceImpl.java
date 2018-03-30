@@ -137,6 +137,32 @@ public class AnonymServiceImpl implements AnonymService {
 		
 		return resultMap;
 	}
+	
+	/**
+	 * 保存背景图片
+	 */
+	@Override
+	public Object saveBackgroundImg(String backgroundImg, String anonymId) throws Exception {
+		String result = "0";
+		String msg = "系统繁忙，请稍后重试";
+		Map<String, Object> resultMap = new HashMap<>();
+		if(!StringUtils.isBlank(backgroundImg) && !StringUtils.isBlank(anonymId)){
+			Anonym anonym = anonymousDao.findAnonymById(anonymId);
+			if(anonym != null){
+				result = "1";
+				msg = "更新成功";
+				resultMap.put("backgroundImg", backgroundImg);
+				anonym.setBackgroundImg(backgroundImg);
+				anonym.setUpdateTime(new Date());
+				anonymousDao.updateQuickAnonym(anonym);
+			}
+		}
+		
+		resultMap.put("result", result);
+		resultMap.put("msg", msg);
+		
+		return resultMap;
+	}
 
 	/**
 	 * 更新个人信息
@@ -173,4 +199,5 @@ public class AnonymServiceImpl implements AnonymService {
 		
 		return resultMap;
 	}
+
 }

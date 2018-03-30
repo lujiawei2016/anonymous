@@ -34,6 +34,15 @@ public interface AnonymService {
 	public Object saveHeadImg(String headerImg,String anonymId) throws Exception;
 	
 	/**
+	 * 保存背景图片
+	 * @param headerImg
+	 * @param anonymId
+	 * @return
+	 * @throws Exception
+	 */
+	public Object saveBackgroundImg(String backgroundImg,String anonymId) throws Exception;
+	
+	/**
 	 * 更新用户信息
 	 * @param anonymId
 	 * @param nickName
