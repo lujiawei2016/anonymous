@@ -1,6 +1,5 @@
 package com.anonymous.card.service.impl;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -93,6 +92,33 @@ public class CardServiceImpl implements CardService {
 			resultMap.put("cardList", cardList);
 			
 			logger.info(anonymId+"获取最新卡片信息");
+		}
+		
+		resultMap.put("result", result);
+		resultMap.put("msg", msg);
+		
+		return resultMap;
+	}
+
+	/**
+	 * 分页查询卡片
+	 */
+	@Override
+	public Object pagingSearchCard(String anonymId, String offset, String length) throws Exception {
+		String result = "0";
+		String msg = "系统繁忙，请稍后重试";
+		Map<String, Object> resultMap = new HashMap<>();
+		
+		if(StringUtils.isNumeric(offset) && StringUtils.isNumeric(length)){
+			List<Map<String, Object>> cardList = cardDao.pagingSearchCard(anonymId, Integer.parseInt(offset), Integer.parseInt(length));
+			result = "1";
+			msg = "";
+			resultMap.put("cardList", cardList);
+			
+			logger.info(anonymId+"获取最新卡片信息");
+		}else{
+			result = "2";
+			msg = "参数不合法";
 		}
 		
 		resultMap.put("result", result);

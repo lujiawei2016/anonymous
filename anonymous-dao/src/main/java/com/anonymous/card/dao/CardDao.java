@@ -41,5 +41,13 @@ public interface CardDao {
 	 */
 	public List<Map<String, Object>> findCardByAnonymId(@Param("anonymId") String anonymId);
 	
+	/**
+	 * 分页查询卡片
+	 * @param anonymId
+	 * @param offset
+	 * @param length
+	 * @return
+	 */
+	public List<Map<String, Object>> pagingSearchCard(@Param("anonymId") String anonymId,@Param("offset") int offset,@Param("length") int length);
 	
 }

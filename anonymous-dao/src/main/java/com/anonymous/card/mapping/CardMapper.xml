@@ -52,7 +52,7 @@
 		WHERE 
 		  card.`delFlag` = 1
 		  AND card.`isLock` = 1
-		ORDER BY card.`createTime` DESC ;
+		ORDER BY card.`createTime` DESC
 	</select>
 	
 	<!-- 获取用户发布的卡片 -->
@@ -72,5 +72,25 @@
 		  AND card.`isLock` = 1
 	</select>
 
+	<!-- 分页查询卡片 -->
+	<select id="pagingSearchCard" resultType="java.util.Map">
+		SELECT 
+		  card.`cardId`,
+		  card.`cardContent`,
+		  card.`cardImg` ,
+		  (SELECT COUNT(*) FROM an_cardcollection collection WHERE collection.`cardId`=card.`cardId`) AS collnum,
+		  (SELECT COUNT(*) FROM an_cardcomment comm WHERE comm.`cardId`=card.`cardId`) AS commnum,
+		  (SELECT COUNT(*) FROM an_cardfabulous fabul WHERE fabul.`cardId`=card.`cardId`) AS fabulnum
+		FROM
+		  an_card card 
+		WHERE 
+		  card.`delFlag` = 1
+		  AND card.`isLock` = 1
+		  <if test="anonymId != null and anonymId != '' and anonymId != 'null'">
+		  	AND card.`anonymId`=#{anonymId}
+		  </if>
+		ORDER BY card.`createTime` DESC
+		LIMIT #{offset},#{length}
+	</select>
 
 </mapper>

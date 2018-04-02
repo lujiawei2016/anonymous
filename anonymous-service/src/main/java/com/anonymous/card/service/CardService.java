@@ -25,4 +25,14 @@ public interface CardService {
 	 * @throws Exception
 	 */
 	public Object searchNewCard(String anonymId) throws Exception;
+
+	/**
+	 * 分页查询卡片
+	 * @param anonymId       用户ID
+	 * @param offset         从第offset条开始查询
+	 * @param length         查询length条
+	 * @return
+	 * @throws Exception
+	 */
+	public Object pagingSearchCard(String anonymId,String offset,String length) throws Exception;
 }
