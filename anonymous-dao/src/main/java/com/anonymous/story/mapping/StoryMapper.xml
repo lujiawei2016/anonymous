@@ -36,6 +36,30 @@
 		  WHERE s.`isLock`=1 
 		  ORDER BY s.`createTime` DESC LIMIT 0,10
 	</select>
+	
+	<!-- 分页查询故事 -->
+	<select id="pagingSearchStory" resultType="java.util.Map">
+		SELECT 
+		  s.`storyId`,
+		  s.`storyTitle`,
+		  s.`storyContent`,
+		  s.`storyArticleSummary`,
+		  s.`anonymId` AS authorId,
+		  a.`headerImg`,
+		  a.`nickName` ,
+		  (SELECT COUNT(*) FROM an_storycollection WHERE storyId=s.`storyId`) AS collection,
+		  (SELECT COUNT(*) FROM an_storycomment WHERE storyId=s.`storyId`) AS comm,
+		  (SELECT COUNT(*) FROM an_storyfabulous WHERE storyId=s.`storyId`) AS fabulous
+		FROM
+		  an_story s 
+		  INNER JOIN an_anonym a 
+		    ON s.`anonymId` = a.`anonymId` 
+		  WHERE s.`isLock`=1 
+		  <if test="anonymId != null and anonymId != '' and anonymId != 'null'">
+		  AND s.`storyId`=#{storyId}
+		  </if>
+		  ORDER BY s.`createTime` DESC LIMIT #{offset},#{length}
+	</select>
 
 	<!-- 保存故事 -->
 	<insert id="saveStory" parameterType="hashmap">

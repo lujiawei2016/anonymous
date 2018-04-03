@@ -34,4 +34,14 @@ public interface StoryService {
 	 * @throws Exception
 	 */
 	public Object findStoryById(String storyId,String anonymId) throws Exception;
+	
+	/**
+	 * 分页查询故事
+	 * @param anonymId
+	 * @param offset
+	 * @param length
+	 * @return
+	 * @throws Exception
+	 */
+	public Object pagingSearchStory(String anonymId,String offset,String length) throws Exception;
 }

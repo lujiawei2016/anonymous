@@ -72,4 +72,12 @@ public interface StoryDao {
 	 */
 	public List<Map<String, Object>> findStoryByAnonymId(@Param("anonymId") String anonymId);
 	
+	/**
+	 * 分页查询故事
+	 * @param anonymId
+	 * @param offset
+	 * @return
+	 */
+	public List<Map<String, Object>> pagingSearchStory(@Param("anonymId") String anonymId,@Param("offset") int offset,@Param("length") int length);
+	
 }

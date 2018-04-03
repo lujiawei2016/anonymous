@@ -147,4 +147,28 @@ public class StoryServiceImpl implements StoryService {
 		
 		return resultMap;
 	}
+
+	/**
+	 * 分页查询故事
+	 */
+	@Override
+	public Object pagingSearchStory(String anonymId, String offset, String length) throws Exception {
+		String result = "0";
+		String msg = "系统繁忙，请稍后重试";
+		Map<String, Object> resultMap = new HashMap<>();
+		if(StringUtils.isNumeric(offset) && StringUtils.isNumeric(length)){
+			List<Map<String, Object>> storyList = storyDao.pagingSearchStory(anonymId, Integer.parseInt(offset), Integer.parseInt(length));
+			resultMap.put("storyList", storyList);
+			result = "1";
+			msg = "查询成功";
+		}else{
+			result = "2";
+			msg = "参数不合符";
+		}
+		
+		resultMap.put("result", result);
+		resultMap.put("msg", msg);
+		
+		return resultMap;
+	}
 }
