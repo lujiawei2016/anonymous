@@ -145,5 +145,5 @@
 		  an_story s 
 		WHERE s.`anonymId` = #{anonymId} 
 	</select>
-
+	
 </mapper>
