@@ -56,7 +56,7 @@
 		    ON s.`anonymId` = a.`anonymId` 
 		  WHERE s.`isLock`=1 
 		  <if test="anonymId != null and anonymId != '' and anonymId != 'null'">
-		  AND s.`storyId`=#{storyId}
+		  AND s.`anonymId`=#{anonymId}
 		  </if>
 		  ORDER BY s.`createTime` DESC LIMIT #{offset},#{length}
 	</select>
