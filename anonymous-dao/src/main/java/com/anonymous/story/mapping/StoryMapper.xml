@@ -133,6 +133,7 @@
 		WHERE s.`storyId` = #{storyId} 
 	</select>
 	
+	
 	<!-- 获取用户发布的故事 -->
 	<select id="findStoryByAnonymId" parameterType="String" resultType="com.anonymous.story.pojo.Story">
 		SELECT 
